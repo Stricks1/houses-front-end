@@ -1,4 +1,8 @@
-import { LOAD_HOUSES, RECEIVE_HOUSES, ERROR_FETCHING_HOUSES} from '../actions/requestTodo';
+import { 
+    LOAD_HOUSES,
+    RECEIVE_HOUSES,
+    ERROR_FETCHING_HOUSES
+} from '../actions/requestHouses';
 
 const initialState = {
   isFetching: false,

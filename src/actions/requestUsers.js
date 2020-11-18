@@ -26,20 +26,31 @@ export const userRegistration = user => async dispatch => {
         urlCall,
         {
           user: {
-            username: user.name,
+            username: user.username,
             email: user.email,
             password: user.password,
             password_confirmation: user.password_confirmation,
           },
+        },
+        {
+          headers: {
+              'Content-Type': 'application/json'
+          }
         }
       )
       .then(response =>  {
-        localStorage.setItem("token", response.data.token)
+          localStorage.setItem("token", response.data.data.token)
+          dispatch({
+            type: USER_REGISTERED,
+            payload: response.data,
+          })
+        }
+      , (error) => {
         dispatch({
-          type: USER_REGISTERED,
-          payload: response.data,
-        })}
-      );
+          type: REGISTRATION_ERROR,
+          payload: error.response.data,
+        });
+      });
   } catch (error) {
     dispatch({
       type: REGISTRATION_ERROR,
@@ -59,10 +70,8 @@ export const userLogin = user => async dispatch => {
       .post(
         urlCall,
         {
-          user: {
-            username: user.username,
-            password: user.password,
-          },
+          username: user.username,
+          password: user.password,
         },
         {
           headers: {
@@ -71,12 +80,20 @@ export const userLogin = user => async dispatch => {
         }
       )
       .then(response => {
-        localStorage.setItem("token", response.data.token)
-        dispatch({
-          type: USER_LOGED,
-          payload: response.data,
-        })}
-      );
+        if (response.data.errors) {
+          const errorArr = {"Failure": [[response.data.errors]]}
+          dispatch({
+            type: LOGIN_ERROR,
+            payload: errorArr,
+          });
+        } else {
+          localStorage.setItem("token", response.data.data.token)
+          dispatch({
+            type: USER_LOGED,
+            payload: response.data,
+          })
+        }
+      });
   } catch (error) {
     dispatch({
       type: LOGIN_ERROR,
@@ -97,11 +114,19 @@ export const userAutoLogIn = () => async dispatch => {
           Authorization: 'Bearer ' + localStorage.getItem("token"),
         }
       }).then(response => {
-      dispatch({
-        type: RECEIVE_USERS,
-        payload: response.data,
+        if (response.data.errors) {
+          const errorArr = {"Failure": [[response.data.errors]]}
+          dispatch({
+            type: LOGIN_ERROR,
+            payload: errorArr,
+          });
+        } else {
+          dispatch({
+            type: RECEIVE_USERS,
+            payload: response.data,
+          });
+        }
       });
-    });
   } catch (error) {
     dispatch({
       type: ERROR_FETCHING_USERS,
@@ -123,11 +148,19 @@ export const userLogout = () => async dispatch => {
           Authorization: 'Bearer ' + localStorage.getItem("token"),
         }
       }).then(response => {
+      localStorage.removeItem("token")
       dispatch({
         type: USER_LOGOUT,
         payload: response.data,
+      })
+      }, (error) => {
+          console.log('error')
+          console.log(error)
+        dispatch({
+          type: LOGOUT_ERROR,
+          payload: error.response.data,
+        });
       });
-    });
   } catch (error) {
     dispatch({
       type: LOGOUT_ERROR,
