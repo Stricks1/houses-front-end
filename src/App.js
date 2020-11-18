@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux';
 import { userAutoLogIn } from './actions/requestUsers';
 import SignupForm from './containers/signup';
 import LogInForm from './containers/login';
-import LogOut from './containers/logout';
+import LogOut from './components/logout';
+import Nav from './components/navbar';
 import './index.css';
 
 function App() {
@@ -17,7 +18,8 @@ function App() {
   }
 
   return (
-    <div className="App row">
+    <div className="App">
+      <Nav />
       <SignupForm />
       <LogInForm />
       <LogOut />

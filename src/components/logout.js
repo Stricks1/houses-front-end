@@ -10,7 +10,7 @@ const LogOut = () => {
   };
 
   return ( 
-    <button type="button" onClick={() => handleClick()}>Log Out</button>
+    <a className="menu-item" href="/" onClick={() => handleClick()}>Log Out</a>
   )
 }
 

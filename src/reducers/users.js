@@ -86,7 +86,6 @@ const users = (state = initialState, action) => {
       };
 
     case RECEIVE_USERS:
-        console.log(payload)
       return {
         ...state,
         isFetching: false,
