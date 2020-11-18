@@ -142,7 +142,7 @@ export const userLogout = () => async dispatch => {
     });
 
     const urlCall = URL + LOGOUT;
-    axios.delete(urlCall,
+    axios.get(urlCall,
       {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem("token"),
@@ -152,15 +152,8 @@ export const userLogout = () => async dispatch => {
       dispatch({
         type: USER_LOGOUT,
         payload: response.data,
-      })
-      }, (error) => {
-          console.log('error')
-          console.log(error)
-        dispatch({
-          type: LOGOUT_ERROR,
-          payload: error.response.data,
-        });
       });
+    });
   } catch (error) {
     dispatch({
       type: LOGOUT_ERROR,

@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 
 const ErrorMessageContainer = ({ users }) => {
   const messages = users.errors
-  console.log(messages)
   return (
     <div>
       { messages.length > 0 && (

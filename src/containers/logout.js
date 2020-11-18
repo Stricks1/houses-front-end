@@ -4,7 +4,6 @@ import { userLogout } from '../actions/requestUsers';
 
 const LogOut = () => {
   const dispatch = useDispatch();
-  console.log(localStorage.getItem("token"))
 
   function handleClick() {
     dispatch(userLogout());

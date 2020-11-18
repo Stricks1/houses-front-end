@@ -60,8 +60,6 @@ const users = (state = initialState, action) => {
       };
 
     case USER_LOGED:
-        console.log(payload)
-        console.log(payload.data)
       return {
         ...state,
         isFetching: false,
@@ -88,11 +86,12 @@ const users = (state = initialState, action) => {
       };
 
     case RECEIVE_USERS:
+        console.log(payload)
       return {
         ...state,
         isFetching: false,
-        loggedIn: payload.data.token ? true : false,
-        user: payload.data.user,
+        loggedIn: true,
+        user: payload.user,
       };
 
     case ERROR_FETCHING_USERS:

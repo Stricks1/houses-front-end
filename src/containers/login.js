@@ -7,7 +7,6 @@ const LogInForm = () => {
   let username
   let password
   const dispatch = useDispatch();
-  console.log(localStorage.getItem("token"))
 
   return (
     <div>
