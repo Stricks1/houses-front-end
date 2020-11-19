@@ -41,6 +41,18 @@ code {
   padding-bottom: 50px;
 }
 
+.image-load {
+  width: 100%;
+  height: 100%;
+}
+
+.bg-load {
+  width: 50vh;
+  height: 50vh;
+  opacity: 0.9;
+  margin: auto;
+}
+
 @media all and (min-width: 400px) {
   .Login {
     padding: 60px 0;

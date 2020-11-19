@@ -2,6 +2,7 @@ import React from 'react';
 import '../index.css';
 import ErrorItem from '../components/errorItem';
 import { connect } from 'react-redux';
+import loadImg from '../assets/loadImg.gif';
 
 const ErrorMessageContainer = ({ users }) => {
   const messages = users.errors

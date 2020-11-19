@@ -1,24 +1,39 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ErrorMessageContainer from './errorMessages'
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { userLogin } from '../actions/requestUsers';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import logo from '../assets/loginImg.png';
+import loadImg from '../assets/loadImg.gif';
 
 const LogInForm = () => {
   let username
   let password
   const dispatch = useDispatch();
   const userState = useSelector(state => state.users);
-  if (userState.user.username) {
-    return (<Redirect to="/" />);
-  }
+  let history = useHistory();
+
+  useEffect(() => {
+    if (userState.user.username) {
+      history.push('/')
+      return
+    }
+  }, [history, userState.user.username]);
+
 
   return (
     <div>
-      <div className="Login d-flex flex-column">
+    { userState.isFetching && 
+        (
+          <div data-testid="loading" className="bg-load">
+            <img className="image-load" src={loadImg} alt="loadingImage" />
+          </div>
+        )
+      }
+    { !userState.isFetching && 
+      (<div className="Login d-flex flex-column">
         <img src={logo} alt='LogoImage' className="logoCenter align-self-center" />
         <Form
           onSubmit={e => {
@@ -42,8 +57,8 @@ const LogInForm = () => {
               username: username.value,
               password: password.value
             }
-            dispatch(userLogin(loginfo));
             password.value = ''
+            dispatch(userLogin(loginfo));
           }}
         >
           <Form.Group size="lg" controlId="username">
@@ -64,7 +79,8 @@ const LogInForm = () => {
           </Button>
         </Form>
         <ErrorMessageContainer />
-      </div>
+      </div>)
+    }
     </div>
   )
 }
