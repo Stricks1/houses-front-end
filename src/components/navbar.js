@@ -16,7 +16,7 @@ const Nav = () => {
 
   if (userState.loggedIn) {
     return (
-      <div id="nav-links" className="pl-3 py-2 w-100 border-bottom mb-3 d-flex justify-content-between">
+      <div id="nav-links" className="pl-3 py-2 w-100 border-bottom d-flex justify-content-between">
         <Dropdown>
           <Dropdown.Toggle variant="secondary" id="dropdown-basic">
             &nbsp;<i className="fas fa-bars"></i>&nbsp;&nbsp;
@@ -46,7 +46,7 @@ const Nav = () => {
   }
 
   return (
-    <nav className="py-2 w-100 border-bottom mb-3">
+    <nav className="py-2 w-100 border-bottom">
       <ul id="nav-links" className="d-flex list-nav justify-content-between w-100">
         <Link className="list-nav-item" to="/login" key="login">
           <li onClick={() => handleClick()} id="login">Log In</li>

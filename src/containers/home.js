@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { housesLoad } from '../actions/requestHouses';
 import loadImg from '../assets/loadImg.gif';
+import Place from '../components/place';
 
 const HousesList = () => {
   const dispatch = useDispatch();
@@ -28,10 +29,16 @@ const HousesList = () => {
           <img className="image-load" src={loadImg} alt="loadingImage" />
         </div>
         )}
-      <ul className="list-container" data-testid="list-todos">
-        { !housesState.isFetching && 'something'
+        { !housesState.isFetching &&
+          <div className="d-flex justify-content-center">
+            <h1>Houses</h1>
+          </div>
         }
-      </ul>
+      <div className="cards-container">
+        { !housesState.isFetching && places.places &&
+          places.places.map(place => (<Place key={place.id} place={place} />))
+        }
+      </div>
     </div>
   );
 }
