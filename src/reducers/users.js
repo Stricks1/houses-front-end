@@ -10,7 +10,8 @@ import {
     ERROR_FETCHING_USERS,
     LOGOUT_USER,
     USER_LOGOUT,
-    LOGOUT_ERROR
+    LOGOUT_ERROR,
+    CLEAR_ERRORS
  } from '../actions/requestUsers';
 
 const initialState = {
@@ -111,13 +112,19 @@ const users = (state = initialState, action) => {
         isFetching: false,
         loggedIn: false,
         user: {},
-        error: []
+        errors: []
       };
 
     case LOGOUT_ERROR:
       return {
         ...state,
         isFetching: false,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        errors: payload  
       };
 
     default:

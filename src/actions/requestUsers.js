@@ -13,6 +13,7 @@ export const ERROR_FETCHING_USERS = 'ERROR_FETCHING_USERS';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const USER_LOGOUT = 'USER_LOGOUT';
 export const LOGOUT_ERROR = 'LOGOUT_ERROR';
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
 export const userRegistration = user => async dispatch => {
   try {
@@ -117,7 +118,7 @@ export const userAutoLogIn = () => async dispatch => {
         if (response.data.errors) {
           const errorArr = {"Failure": [[response.data.errors]]}
           dispatch({
-            type: LOGIN_ERROR,
+            type: ERROR_FETCHING_USERS,
             payload: errorArr,
           });
         } else {
@@ -136,6 +137,7 @@ export const userAutoLogIn = () => async dispatch => {
 };
 
 export const userLogout = () => async dispatch => {
+    console.log('userlogout here')
   try {
     dispatch({
       type: LOGOUT_USER,
@@ -148,12 +150,20 @@ export const userLogout = () => async dispatch => {
           Authorization: 'Bearer ' + localStorage.getItem("token"),
         }
       }).then(response => {
+          console.log('testetes')
       localStorage.removeItem("token")
-      dispatch({
-        type: USER_LOGOUT,
-        payload: response.data,
+        dispatch({
+          type: USER_LOGOUT,
+          payload: response.data,
+        })
+      }, () => {
+        console.log('here')
+      localStorage.removeItem("token")
+        dispatch({
+          type: LOGOUT_ERROR,
+          payload: '',
+        });
       });
-    });
   } catch (error) {
     dispatch({
       type: LOGOUT_ERROR,
@@ -161,3 +171,10 @@ export const userLogout = () => async dispatch => {
     });
   }
 };
+
+export const clearErrors = () => (
+  {
+    type: CLEAR_ERRORS,
+    payload: [],
+  }
+);

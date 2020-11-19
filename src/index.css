@@ -35,6 +35,12 @@ code {
   border-color: red !important;
 }
 
+.logoCenter {
+  width: 50%;
+  max-width: 150px;
+  padding-bottom: 50px;
+}
+
 @media all and (min-width: 400px) {
   .Login {
     padding: 60px 0;
@@ -42,6 +48,6 @@ code {
 
   .Login form {
     margin: 0 auto;
-    max-width: 320px;
+    width: 320px;
   }
 }
