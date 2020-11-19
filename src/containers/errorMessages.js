@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 const ErrorMessageContainer = ({ users }) => {
   const messages = users.errors
   return (
-    <div>
+    <div className="d-flex flex-column">
       { messages.length > 0 && (
-        <div className="info-message self-center">
+        <div className="info-message">
           {messages.map(itemError =>
             (<ErrorItem key={itemError[0]} itemError={itemError} />)
           )}
