@@ -11,13 +11,19 @@ export const housesLoad = () => async dispatch => {
       type: LOAD_HOUSES,
     });
     const urlCall = URL + PLACES;
-    axios.get(urlCall).then(response => {
+    axios.get(urlCall,
+      {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem("token"),
+        }
+      }).then(response => {
+      console.log(response)
       const dataReturn = response.data;
       dispatch({
         type: RECEIVE_HOUSES,
         payload: dataReturn,
-      });
-    });
+      })
+    })
   } catch (error) {
     dispatch({
       type: ERROR_FETCHING_HOUSES,
