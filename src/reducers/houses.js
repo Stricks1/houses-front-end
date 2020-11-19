@@ -9,71 +9,7 @@ const initialState = {
   places: [{}],
   status: '',
 };
-/*
-{
-    "data": [
-        {
-            "id": "3",
-            "type": "place",
-            "attributes": {
-                "location_type": 1,
-                "address": "testing new information",
-                "city": "Navengates",
-                "country": "Brazil",
-                "daily_price": "32.22"
-            },
-            "relationships": {
-                "images": {
-                    "data": []
-                }
-            }
-        },
-        {
-            "id": "1",
-            "type": "place",
-            "attributes": {
-                "location_type": 1,
-                "address": "address test information",
-                "city": "Blumenau",
-                "country": "Brazil",
-                "daily_price": "50.15"
-            },
-            "relationships": {
-                "images": {
-                    "data": [
-                        {
-                            "id": "1",
-                            "type": "image"
-                        },
-                        {
-                            "id": "3",
-                            "type": "image"
-                        }
-                    ]
-                }
-            }
-        }
-    ],
-    "included": [
-        {
-            "id": "1",
-            "type": "image",
-            "attributes": {
-                "place_id": 1,
-                "image_url": "https://s.concursosnobrasil.com.br/media/cache/f/prefeitura-de-blumenau-sc-960x540.jpg"
-            }
-        },
-        {
-            "id": "3",
-            "type": "image",
-            "attributes": {
-                "place_id": 1,
-                "image_url": "https://hotelgloria.com.br/wp-content/uploads/2019/07/hotel-gloria-blumenau-sc.jpg"
-            }
-        }
-    ]
-}
-*/
+
 const places = (state = initialState, action) => {
   const { type, payload } = action;
 
@@ -84,14 +20,26 @@ const places = (state = initialState, action) => {
         isFetching: true,
       };
     case RECEIVE_HOUSES:
-      //let placeStartArr = payload.data
-      //let imagesStartArr = payload.included
-      //let formatedReturn = []
-      //placeStartArr.forEach(element => console.log(element));
+      let objectFormated = []
+      payload.data.forEach(element => {
+          let imgArr = []
+          element.relationships.images.data.forEach(element2 => {
+            payload.included.forEach(images => {
+              if (parseInt(images.id, 10) === parseInt(element2.id, 10) ){
+                let imgSingle = { id: element2.id, url: images.attributes.image_url }
+                imgArr.push(imgSingle)
+              }
+            })
+          })
+          let singlePlace = { images: imgArr, description: element.attributes, id: element.id}
+          objectFormated.push(singlePlace)
+        }
+      );
+      const arrPlacesFormated = { places: objectFormated }
       return {
         ...state,
         isFetching: false,
-        places: payload,
+        places: arrPlacesFormated,
       };
     case ERROR_FETCHING_HOUSES:
       return {

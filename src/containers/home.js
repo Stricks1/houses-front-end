@@ -9,6 +9,7 @@ const HousesList = () => {
   const dispatch = useDispatch();
   const housesState = useSelector(state => state.houses);
   const { places } = housesState
+  console.log(places)
   let history = useHistory();
 
   useEffect(() => {

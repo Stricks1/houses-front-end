@@ -47,9 +47,9 @@ code {
 }
 
 .bg-load {
-  width: 50vh;
-  height: 50vh;
-  opacity: 0.9;
+  width: 30vh;
+  height: 30vh;
+  opacity: 0.7;
   margin: auto;
 }
 
