@@ -1,6 +1,7 @@
 import React from 'react';
 import ErrorMessageContainer from './errorMessages'
-import { useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { userRegistration } from '../actions/requestUsers';
 
 const SignupForm = () => {
@@ -9,7 +10,10 @@ const SignupForm = () => {
   let password
   let password_confirmation
   const dispatch = useDispatch();
-
+  const userState = useSelector(state => state.users);
+  if (userState.user.username) {
+    return (<Redirect to="/" />);
+  }
   return (
     <div>
       <form

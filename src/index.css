@@ -27,6 +27,21 @@ code {
   padding-right: 5%;
 }
 
-.list-nav-item{
+.Login {
+  padding: 5%;
+}
 
+.error {
+  border-color: red !important;
+}
+
+@media all and (min-width: 400px) {
+  .Login {
+    padding: 60px 0;
+  }
+
+  .Login form {
+    margin: 0 auto;
+    max-width: 320px;
+  }
 }

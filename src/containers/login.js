@@ -1,19 +1,39 @@
 import React from 'react';
 import ErrorMessageContainer from './errorMessages'
-import { useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { userLogin } from '../actions/requestUsers';
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 const LogInForm = () => {
   let username
   let password
   const dispatch = useDispatch();
+  const userState = useSelector(state => state.users);
+  if (userState.user.username) {
+    return (<Redirect to="/" />);
+  }
 
   return (
-    <div>
-      <form
+    <div className="Login">
+      <Form
         onSubmit={e => {
           e.preventDefault()
+
+          username.classList.remove('error');
+          password.classList.remove('error');
+          if (!password.value.trim()) {
+            password.classList.add('error');
+          }
           if (!username.value.trim()) {
+            username.classList.add('error');
+            username.focus()
+            return
+          }
+          if (!password.value.trim()) {
+            password.classList.add('error');
+            password.focus()
             return
           }
           let loginfo = {
@@ -24,14 +44,23 @@ const LogInForm = () => {
           password.value = ''
         }}
       >
-      <input ref={self => (username = self)} 
-        placeholder="Type your Username..."
-      />
-      <input type="password" ref={self => (password = self)} 
-        placeholder="Type your Password..."
-      />
-        <button type="submit">Log In</button>
-      </form>
+        <Form.Group size="lg" controlId="username">
+          <Form.Label>Username</Form.Label>
+          <Form.Control ref={self => (username = self)}
+            autoFocus 
+            placeholder="Type your Username..."
+          />
+        </Form.Group>
+        <Form.Group size="lg" controlId="password">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" ref={self => (password = self)} 
+            placeholder="Type your Password..."
+          />
+        </Form.Group>
+        <Button block size="lg" type="submit">
+          Login
+        </Button>
+      </Form>
       <ErrorMessageContainer />
     </div>
   )

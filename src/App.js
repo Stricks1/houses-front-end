@@ -16,13 +16,20 @@ function App() {
   } else {
     console.log('sem autoLogin')
   }
-
+/*
+  <SignupForm />
+  <LogInForm />
+  <LogOut />
+    <Route path="/" exact component={Home} />
+      
+*/
   return (
     <div className="App">
       <Nav />
-      <SignupForm />
-      <LogInForm />
-      <LogOut />
+      <Switch>
+        <Route path="/login" exact component={LogInForm} />
+        <Route path="/register" exact component={SignupForm} />
+      </Switch>
     </div>
   );
 }
