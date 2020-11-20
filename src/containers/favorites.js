@@ -12,7 +12,6 @@ const FavList = () => {
   const favoritesState = useSelector(state => state.favorites);
   const { places } = housesState;
   const history = useHistory();
-  console.log('calling');
   useEffect(() => {
     if (!localStorage.getItem('token')) {
       history.push('/login');
