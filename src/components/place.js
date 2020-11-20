@@ -6,6 +6,10 @@ const Place = ({ place }) => {
   const {
     id, description, images
   } = place;
+  if (images.length === 0 ){
+    let fillerImg = { url: "https://dummyimage.com/600x500/ffffff/000000.png&text=NO+IMAGE" }
+    images.push(fillerImg)
+  }
   return (
     <div className="single-card-container">
       <Link className="text-decoration-none" to={`/house/${id}`} id="link-detail">

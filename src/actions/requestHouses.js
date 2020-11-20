@@ -17,7 +17,6 @@ export const housesLoad = () => async dispatch => {
           Authorization: 'Bearer ' + localStorage.getItem("token"),
         }
       }).then(response => {
-      console.log(response)
       const dataReturn = response.data;
       dispatch({
         type: RECEIVE_HOUSES,

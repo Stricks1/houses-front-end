@@ -150,14 +150,12 @@ export const userLogout = () => async dispatch => {
           Authorization: 'Bearer ' + localStorage.getItem("token"),
         }
       }).then(response => {
-          console.log('testetes')
       localStorage.removeItem("token")
         dispatch({
           type: USER_LOGOUT,
           payload: response.data,
         })
       }, () => {
-        console.log('here')
       localStorage.removeItem("token")
         dispatch({
           type: LOGOUT_ERROR,

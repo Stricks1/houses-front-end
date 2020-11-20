@@ -3,8 +3,13 @@ import Carousel from 'react-bootstrap/Carousel';
 import '../index.css';
 import { withRouter } from 'react-router-dom';
 
+// <button className="d-flex mx-auto">Teste</button>
+
 const HouseInfo = ({ place }) => {
   const [index, setIndex] = useState(0);
+  if (place.images.length === 0) {
+    console.log('noimage')
+  }
   const handleSelect = selectedIndex => {
     setIndex(selectedIndex);
   };
