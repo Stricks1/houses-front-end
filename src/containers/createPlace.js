@@ -28,7 +28,6 @@ const CreatePlaceForm = () => {
   }, [history, userState.user.username]);
 
   function createPlace(placeObj) {
-      console.log('call create')
     try {
       const urlCall = URL + PLACES;
       axios
@@ -44,16 +43,11 @@ const CreatePlaceForm = () => {
         }
       )
       .then(response => {
-        console.log('veio response')
-        console.log(response)
         if (response.data.data.type === "place") {
-            console.log('response dispatch')
           dispatch(housesLoad());
-          console.log('response change page')
-          history.push('/')
+          history.push("/")
           return
         } else {
-            console.log('response error')
           dispatch({
             type: CHANGE_MESS,
             payload: "Error Creating Place",
@@ -61,8 +55,6 @@ const CreatePlaceForm = () => {
         }
       });
     } catch (error) {
-        console.log('veio error')
-        console.log(error)
       dispatch({
         type: CHANGE_MESS,
         payload: error,

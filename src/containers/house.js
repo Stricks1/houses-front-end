@@ -37,9 +37,9 @@ const HouseDetail = () => {
   }, [dispatch, history]);
 
   function createImage(imageObj) {
-    console.log('call create image')
     try {
       const urlCall = URL + IMAGES;
+      console.log(urlCall)
       axios
       .post(
         urlCall,
@@ -53,16 +53,9 @@ const HouseDetail = () => {
         }
       )
       .then(response => {
-        console.log('veio response')
-        console.log(response)
         if (response.data.data.type === "image") {
-            console.log('response dispatch')
           dispatch(housesLoad());
-          console.log('response change page')
-          history.push('/')
-          return
         } else {
-            console.log('response error')
           dispatch({
             type: CHANGE_MESS,
             payload: "Error Creating Place",
@@ -70,14 +63,43 @@ const HouseDetail = () => {
         }
       });
     } catch (error) {
-        console.log('veio error')
-        console.log(error)
       dispatch({
         type: CHANGE_MESS,
         payload: error,
       });
     }
   };
+
+  function testImage(url, timeoutT) {
+    return new Promise(function (resolve, reject) {
+      var timeout = timeoutT || 5000;
+      var timer, img = new Image();
+      img.onerror = img.onabort = function () {
+        clearTimeout(timer);
+        reject(false);
+      };
+      img.onload = function () {
+        clearTimeout(timer);
+        resolve(true);
+      };
+      timer = setTimeout(function () {
+        img.src = "//!!!!/test.jpg";
+        reject(false);
+      }, timeout);
+      img.src = url;
+    });
+  }
+
+  async function runImage(image) {
+    testImage(image.image_url).then(
+      () => { createImage(image) },
+      () => { 
+        dispatch({
+          type: CHANGE_MESS,
+          payload: "URL not a valid Image",
+        })
+    });
+  }
 
   return (
     <div>
@@ -91,9 +113,11 @@ const HouseDetail = () => {
         <div className="d-flex justify-content-center flex-column align-items-center">
           <h1>House</h1>
           <HouseInfo place={place} />
-          <Button block size="lg" type="button" variant="danger">
-            RENT
-          </Button>
+          <div className="px-4 w-100">
+            <Button block size="lg" type="button" variant="danger">
+              RENT
+            </Button>
+          </div>
         </div>
       }
       { isOwner &&
@@ -111,8 +135,8 @@ const HouseDetail = () => {
                 image_url: urlImage.value,
                 place_id: place.id
               }
-               console.log(image)
-              //createImage(image);
+              urlImage.value = ''
+              runImage(image)
             }}
           >
           
@@ -132,7 +156,7 @@ const HouseDetail = () => {
         <div className="d-flex flex-column align-items-center mt-3 text-danger">
           <div>
             <span> 
-              <b>Error:</b> 
+              <b>Error:&nbsp;</b> 
             </span>
             <span>
               {message}

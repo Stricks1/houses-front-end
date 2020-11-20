@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { CHANGE_MESS } from '../actions/messages';
 import Carousel from 'react-bootstrap/Carousel';
 import '../index.css';
 import { withRouter } from 'react-router-dom';
@@ -7,12 +9,21 @@ import { withRouter } from 'react-router-dom';
 
 const HouseInfo = ({ place }) => {
   const [index, setIndex] = useState(0);
+  const dispatch = useDispatch();
   if (place.images.length === 0) {
-    console.log('noimage')
+    let fillerImg = { url: "https://dummyimage.com/600x500/ffffff/000000.png&text=NO+IMAGE" }
+    place.images.push(fillerImg)
   }
   const handleSelect = selectedIndex => {
     setIndex(selectedIndex);
   };
+
+  useEffect(() => {
+    dispatch({
+      type: CHANGE_MESS,
+      payload: "",
+    });
+  }, [dispatch]);
 
   return (
     <div className="mx-4 d-flex flex-column justify-content-center">
@@ -42,9 +53,10 @@ const HouseInfo = ({ place }) => {
             </Carousel.Item>
           ))}
         </Carousel>
-        <div className="d-flex flex-column h-100 justify-content-center">
+        <div className="d-flex flex-column h-100 align-self-start">
           <div className="city-info mt-4">
             <p>{place.description.address}</p>
+            <h5>$ {parseFloat(place.description.daily_price).toFixed(2)}</h5>
           </div>
         </div>
       </div>

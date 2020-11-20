@@ -42,5 +42,4 @@ const HousesList = () => {
   );
 }
 
-
 export default HousesList;
