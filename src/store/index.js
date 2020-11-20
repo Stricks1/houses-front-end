@@ -11,9 +11,6 @@ const store = createStore(
 
 if (localStorage.getItem('token')) {
   store.dispatch(userAutoLogIn());
-  console.log('autoLogin sucess');
-} else {
-  console.log('sem autoLogin');
 }
 
 export default store;

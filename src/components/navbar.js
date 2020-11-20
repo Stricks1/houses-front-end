@@ -24,27 +24,37 @@ const Nav = () => {
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
-            <Link className="menu-item" to="/" key="places">
-              <li id="home">Places</li>
-            </Link>
-            <Link className="menu-item" to="/rent_dates" key="rentEvents">
-              <li id="dates">Schedule Rents</li>
-            </Link>
-            <Link
-              className="menu-item"
-              to="/add-place"
-              key="add-place"
-            >
-              <li id="add-place">Add a Rent Place</li>
-            </Link>
-            <Link
-              className="menu-item"
-              to="/favorites"
-              key="favorites"
-            >
-              <li id="add-place">Favorite Places</li>
-            </Link>
-            <LogOut />
+            <Dropdown.Item>
+              <Link className="menu-item" to="/" key="places">
+                <li id="home">Places</li>
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Link className="menu-item" to="/rent_dates" key="rentEvents">
+                <li id="dates">Schedule Rents</li>
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Link
+                className="menu-item"
+                to="/add-place"
+                key="add-place"
+              >
+                <li id="add-place">Add a Rent Place</li>
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Link
+                className="menu-item"
+                to="/favorites"
+                key="favorites"
+              >
+                <li id="add-place">Favorite Places</li>
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <LogOut />
+            </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <div className="mr-4 align-self-center">
