@@ -153,15 +153,15 @@ const HouseDetail = () => {
         )}
       { !housesState.isFetching && place && !favoritesState.isFetching
         && (
-        <div className="d-flex justify-content-center flex-column align-items-center">
+        <div className="d-flex justify-content-center flex-column align-items-center max-550 m-auto">
           <h1>House</h1>
           <HouseInfo
             place={place}
             isOwner={isOwner}
             isFav={favoritesState.favorite.includes(parseInt(place.id, 10))}
           />
-          <div className="px-4 w-100">
-            <Button block size="lg" type="button" variant="danger">
+          <div className="px-4 w-100 max-550">
+            <Button block size="lg" type="button" variant="info">
               RENT
             </Button>
           </div>
@@ -169,8 +169,9 @@ const HouseDetail = () => {
         )}
       { isOwner
         && (
-        <div className="m-4">
+        <div className="m-4 max-550 m-auto">
           <Form
+            className="my-4 px-4"
             onSubmit={e => {
               e.preventDefault();
               urlImage.classList.remove('error');

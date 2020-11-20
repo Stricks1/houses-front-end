@@ -9,15 +9,13 @@ import '../index.css';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { housesLoad } from '../actions/requestHouses';
-import { URL, IMAGES } from '../helpers/constants';
+import { favoritesLoad } from '../actions/requestFavorites';
+import { URL, IMAGES, FAVORITES } from '../helpers/constants';
 import { CHANGE_MESS } from '../actions/messages';
-
-// <button className="d-flex mx-auto">Teste</button>
 
 const HouseInfo = ({ place, isOwner, isFav }) => {
   const [index, setIndex] = useState(0);
   const dispatch = useDispatch();
-  console.log(isFav);
   if (place.images.length === 0) {
     const fillerImg = { url: 'https://dummyimage.com/600x500/ffffff/000000.png&text=NO+IMAGE', id: 0 };
     place.images.push(fillerImg);
@@ -65,11 +63,56 @@ const HouseInfo = ({ place, isOwner, isFav }) => {
   }
 
   function removeFavorite() {
-    console.log('remove fav here');
+    try {
+      const urlCall = `${URL}${FAVORITES}/${place.id}`;
+      axios
+        .delete(
+          urlCall,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          },
+        )
+        .then(response => {
+          if (response) {
+            dispatch(favoritesLoad());
+          }
+        });
+    } catch (error) {
+      dispatch({
+        type: CHANGE_MESS,
+        payload: error,
+      });
+    }
   }
 
   function addFavorite() {
-    console.log('add fav here');
+    try {
+      const urlCall = URL + FAVORITES;
+      axios
+        .post(
+          urlCall,
+          {
+            favorite: { place_id: place.id },
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          },
+        )
+        .then(response => {
+          if (response) {
+            dispatch(favoritesLoad());
+          }
+        });
+    } catch (error) {
+      dispatch({
+        type: CHANGE_MESS,
+        payload: error,
+      });
+    }
   }
 
   function changeClassUp() {

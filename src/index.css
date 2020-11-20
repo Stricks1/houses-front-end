@@ -68,6 +68,10 @@ code {
   background-color: #e1e1e1;
 }
 
+.max-550 {
+  max-width: 550px;
+}
+
 .single-card-container:hover {
   background-color: #ececec;
   box-shadow: 7px 5px 20px 0 rgba(119, 115, 114, 0.671);
