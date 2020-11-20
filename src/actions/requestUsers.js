@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { URL, LOGIN, AUTOLOGIN, SIGNIN, LOGOUT } from '../helpers/constants';
+import {
+  URL, LOGIN, AUTOLOGIN, SIGNIN, LOGOUT,
+} from '../helpers/constants';
 
 export const REGISTERING_USER = 'REGISTERING_USER';
 export const USER_REGISTERED = 'USER_REGISTERED';
@@ -35,18 +37,18 @@ export const userRegistration = user => async dispatch => {
         },
         {
           headers: {
-              'Content-Type': 'application/json'
-          }
-        }
+            'Content-Type': 'application/json',
+          },
+        },
       )
-      .then(response =>  {
-          localStorage.setItem("token", response.data.data.token)
-          dispatch({
-            type: USER_REGISTERED,
-            payload: response.data,
-          })
-        }
-      , (error) => {
+      .then(response => {
+        localStorage.setItem('token', response.data.data.token);
+        dispatch({
+          type: USER_REGISTERED,
+          payload: response.data,
+        });
+      },
+      error => {
         dispatch({
           type: REGISTRATION_ERROR,
           payload: error.response.data,
@@ -76,23 +78,23 @@ export const userLogin = user => async dispatch => {
         },
         {
           headers: {
-            Authorization: 'Bearer ' + localStorage.getItem("token"),
-          }
-        }
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        },
       )
       .then(response => {
         if (response.data.errors) {
-          const errorArr = {"Failure": [[response.data.errors]]}
+          const errorArr = { Failure: [[response.data.errors]] };
           dispatch({
             type: LOGIN_ERROR,
             payload: errorArr,
           });
         } else {
-          localStorage.setItem("token", response.data.data.token)
+          localStorage.setItem('token', response.data.data.token);
           dispatch({
             type: USER_LOGED,
             payload: response.data,
-          })
+          });
         }
       });
   } catch (error) {
@@ -112,22 +114,22 @@ export const userAutoLogIn = () => async dispatch => {
     axios.get(urlCall,
       {
         headers: {
-          Authorization: 'Bearer ' + localStorage.getItem("token"),
-        }
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       }).then(response => {
-        if (response.data.errors) {
-          const errorArr = {"Failure": [[response.data.errors]]}
-          dispatch({
-            type: ERROR_FETCHING_USERS,
-            payload: errorArr,
-          });
-        } else {
-          dispatch({
-            type: RECEIVE_USERS,
-            payload: response.data,
-          });
-        }
-      });
+      if (response.data.errors) {
+        const errorArr = { Failure: [[response.data.errors]] };
+        dispatch({
+          type: ERROR_FETCHING_USERS,
+          payload: errorArr,
+        });
+      } else {
+        dispatch({
+          type: RECEIVE_USERS,
+          payload: response.data,
+        });
+      }
+    });
   } catch (error) {
     dispatch({
       type: ERROR_FETCHING_USERS,
@@ -137,7 +139,7 @@ export const userAutoLogIn = () => async dispatch => {
 };
 
 export const userLogout = () => async dispatch => {
-    console.log('userlogout here')
+  console.log('userlogout here');
   try {
     dispatch({
       type: LOGOUT_USER,
@@ -147,21 +149,21 @@ export const userLogout = () => async dispatch => {
     axios.get(urlCall,
       {
         headers: {
-          Authorization: 'Bearer ' + localStorage.getItem("token"),
-        }
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       }).then(response => {
-      localStorage.removeItem("token")
-        dispatch({
-          type: USER_LOGOUT,
-          payload: response.data,
-        })
-      }, () => {
-      localStorage.removeItem("token")
-        dispatch({
-          type: LOGOUT_ERROR,
-          payload: '',
-        });
+      localStorage.removeItem('token');
+      dispatch({
+        type: USER_LOGOUT,
+        payload: response.data,
       });
+    }, () => {
+      localStorage.removeItem('token');
+      dispatch({
+        type: LOGOUT_ERROR,
+        payload: '',
+      });
+    });
   } catch (error) {
     dispatch({
       type: LOGOUT_ERROR,

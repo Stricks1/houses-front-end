@@ -1,4 +1,4 @@
-//const URL = 'https://houses-api-be.herokuapp.com';
+// const URL = 'https://houses-api-be.herokuapp.com';
 const URL = 'http://localhost:3000';
 const PLACES = '/v1/places';
 const LOGIN = '/v1/login';
@@ -11,7 +11,7 @@ const IMAGES = '/v1/images';
 const SIGNIN = '/v1/users';
 const LOGOUT = '/v1/logout';
 
-export { 
+export {
   URL,
   PLACES,
   LOGIN,
@@ -22,5 +22,5 @@ export {
   FAVORITES,
   IMAGES,
   SIGNIN,
-  LOGOUT
+  LOGOUT,
 };

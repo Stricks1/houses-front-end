@@ -11,17 +11,18 @@ const Nav = () => {
 
   function handleClick() {
     dispatch(clearErrors());
-  };
-
+  }
 
   if (userState.loggedIn) {
     return (
       <div id="nav-links" className="pl-3 py-2 w-100 border-bottom d-flex justify-content-between">
         <Dropdown>
           <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-            &nbsp;<i className="fas fa-bars"></i>&nbsp;&nbsp;
+            &nbsp;
+            <i className="fas fa-bars" />
+&nbsp;&nbsp;
           </Dropdown.Toggle>
-        
+
           <Dropdown.Menu>
             <Link className="menu-item" to="/" key="places">
               <li id="home">Places</li>
@@ -29,7 +30,8 @@ const Nav = () => {
             <Link className="menu-item" to="/rent_dates" key="rentEvents">
               <li id="dates">Schedule Rents</li>
             </Link>
-            <Link className="menu-item"
+            <Link
+              className="menu-item"
               to="/add-place"
               key="add-place"
             >
@@ -39,7 +41,11 @@ const Nav = () => {
           </Dropdown.Menu>
         </Dropdown>
         <div className="mr-4 align-self-center">
-          Welcome <b>{userState.user.username}</b> !
+          Welcome
+          {' '}
+          <b>{userState.user.username}</b>
+          {' '}
+          !
         </div>
       </div>
     );

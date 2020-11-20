@@ -6,7 +6,7 @@ import message from './message';
 const combinedReducer = combineReducers({
   houses,
   users,
-  message
+  message,
 });
 
 export default combinedReducer;

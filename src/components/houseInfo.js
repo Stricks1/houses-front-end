@@ -11,8 +11,8 @@ const HouseInfo = ({ place }) => {
   const [index, setIndex] = useState(0);
   const dispatch = useDispatch();
   if (place.images.length === 0) {
-    let fillerImg = { url: "https://dummyimage.com/600x500/ffffff/000000.png&text=NO+IMAGE" }
-    place.images.push(fillerImg)
+    const fillerImg = { url: 'https://dummyimage.com/600x500/ffffff/000000.png&text=NO+IMAGE' };
+    place.images.push(fillerImg);
   }
   const handleSelect = selectedIndex => {
     setIndex(selectedIndex);
@@ -21,7 +21,7 @@ const HouseInfo = ({ place }) => {
   useEffect(() => {
     dispatch({
       type: CHANGE_MESS,
-      payload: "",
+      payload: '',
     });
   }, [dispatch]);
 
@@ -56,7 +56,10 @@ const HouseInfo = ({ place }) => {
         <div className="d-flex flex-column h-100 align-self-start">
           <div className="city-info mt-4">
             <p>{place.description.address}</p>
-            <h5>$ {parseFloat(place.description.daily_price).toFixed(2)}</h5>
+            <h5>
+              $
+              {parseFloat(place.description.daily_price).toFixed(2)}
+            </h5>
           </div>
         </div>
       </div>

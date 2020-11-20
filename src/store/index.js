@@ -6,14 +6,14 @@ import { userAutoLogIn } from '../actions/requestUsers';
 
 const store = createStore(
   combinedReducer,
-  composeWithDevTools(applyMiddleware(thunk))
+  composeWithDevTools(applyMiddleware(thunk)),
 );
 
-if (localStorage.getItem("token")){
+if (localStorage.getItem('token')) {
   store.dispatch(userAutoLogIn());
-  console.log('autoLogin sucess')
+  console.log('autoLogin sucess');
 } else {
-  console.log('sem autoLogin')
+  console.log('sem autoLogin');
 }
 
 export default store;

@@ -1,18 +1,18 @@
-import { 
-    REGISTERING_USER,
-    USER_REGISTERED,
-    REGISTRATION_ERROR,
-    LOGIN_USER,
-    USER_LOGED,
-    LOGIN_ERROR,
-    LOAD_USERS,
-    RECEIVE_USERS,
-    ERROR_FETCHING_USERS,
-    LOGOUT_USER,
-    USER_LOGOUT,
-    LOGOUT_ERROR,
-    CLEAR_ERRORS
- } from '../actions/requestUsers';
+import {
+  REGISTERING_USER,
+  USER_REGISTERED,
+  REGISTRATION_ERROR,
+  LOGIN_USER,
+  USER_LOGED,
+  LOGIN_ERROR,
+  LOAD_USERS,
+  RECEIVE_USERS,
+  ERROR_FETCHING_USERS,
+  LOGOUT_USER,
+  USER_LOGOUT,
+  LOGOUT_ERROR,
+  CLEAR_ERRORS,
+} from '../actions/requestUsers';
 
 const initialState = {
   user: {},
@@ -23,10 +23,10 @@ const initialState = {
 
 const users = (state = initialState, action) => {
   const { type, payload } = action;
-  
-  let errors = ''
-  let entries = ''
-  let errorArray = []
+
+  let errors = '';
+  let entries = '';
+  let errorArray = [];
   switch (type) {
     case REGISTERING_USER:
       return {
@@ -35,23 +35,23 @@ const users = (state = initialState, action) => {
       };
 
     case REGISTRATION_ERROR:
-      errors = payload
-      entries = Object.entries(errors)
-      errorArray = []
+      errors = payload;
+      entries = Object.entries(errors);
+      errorArray = [];
       entries.forEach(element => errorArray.push(element));
       return {
         ...state,
         isFetching: false,
-        errors: errorArray
+        errors: errorArray,
       };
 
     case USER_REGISTERED:
       return {
         ...state,
         isFetching: false,
-        loggedIn: payload.data.token ? true : false,
+        loggedIn: !!payload.data.token,
         user: payload.data.user,
-        errors: []
+        errors: [],
       };
 
     case LOGIN_USER:
@@ -64,20 +64,20 @@ const users = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        loggedIn: payload.data.token ? true : false,
+        loggedIn: !!payload.data.token,
         user: payload.data.user,
-        errors: []
+        errors: [],
       };
 
     case LOGIN_ERROR:
-      errors = payload
-      entries = Object.entries(errors)
-      errorArray = []
+      errors = payload;
+      entries = Object.entries(errors);
+      errorArray = [];
       entries.forEach(element => errorArray.push(element));
       return {
         ...state,
         isFetching: false,
-        errors: errorArray
+        errors: errorArray,
       };
 
     case LOAD_USERS:
@@ -112,7 +112,7 @@ const users = (state = initialState, action) => {
         isFetching: false,
         loggedIn: false,
         user: {},
-        errors: []
+        errors: [],
       };
 
     case LOGOUT_ERROR:
@@ -124,7 +124,7 @@ const users = (state = initialState, action) => {
     case CLEAR_ERRORS:
       return {
         ...state,
-        errors: payload  
+        errors: payload,
       };
 
     default:

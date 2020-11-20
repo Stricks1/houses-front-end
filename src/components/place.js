@@ -4,11 +4,11 @@ import { withRouter, Link } from 'react-router-dom';
 
 const Place = ({ place }) => {
   const {
-    id, description, images
+    id, description, images,
   } = place;
-  if (images.length === 0 ){
-    let fillerImg = { url: "https://dummyimage.com/600x500/ffffff/000000.png&text=NO+IMAGE" }
-    images.push(fillerImg)
+  if (images.length === 0) {
+    const fillerImg = { url: 'https://dummyimage.com/600x500/ffffff/000000.png&text=NO+IMAGE' };
+    images.push(fillerImg);
   }
   return (
     <div className="single-card-container">
@@ -19,12 +19,14 @@ const Place = ({ place }) => {
         <div className="d-flex-around title-card d-flex justify-content-around align-items-center">
           <div className="city-loc">
             <span>
-              {description.city + " - " + description.country}
+              {`${description.city} - ${description.country}`}
             </span>
           </div>
           <div className="d-flex flex-column price-info align-items-center">
             <span>
-              $ {parseFloat(description.daily_price).toFixed(2)}
+              $
+              {' '}
+              {parseFloat(description.daily_price).toFixed(2)}
             </span>
             <span className="small-label">
               per Day

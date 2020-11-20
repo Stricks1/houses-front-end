@@ -7,4 +7,4 @@ const ChangeMessage = message => (
   }
 );
 
-export {  CHANGE_MESS, ChangeMessage };
+export { CHANGE_MESS, ChangeMessage };

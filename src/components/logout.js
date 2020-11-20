@@ -7,11 +7,11 @@ const LogOut = () => {
 
   function handleClick() {
     dispatch(userLogout());
-  };
+  }
 
-  return ( 
+  return (
     <a className="menu-item" href="/" onClick={() => handleClick()}>Log Out</a>
-  )
-}
+  );
+};
 
 export default LogOut;

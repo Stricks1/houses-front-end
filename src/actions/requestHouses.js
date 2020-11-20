@@ -14,15 +14,15 @@ export const housesLoad = () => async dispatch => {
     axios.get(urlCall,
       {
         headers: {
-          Authorization: 'Bearer ' + localStorage.getItem("token"),
-        }
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       }).then(response => {
       const dataReturn = response.data;
       dispatch({
         type: RECEIVE_HOUSES,
         payload: dataReturn,
-      })
-    })
+      });
+    });
   } catch (error) {
     dispatch({
       type: ERROR_FETCHING_HOUSES,
