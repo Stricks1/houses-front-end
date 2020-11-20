@@ -6,9 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { housesLoad } from '../actions/requestHouses';
-import { URL, IMAGES } from '../helpers/constants';
+import { URL, IMAGES, PLACES } from '../helpers/constants';
 import { CHANGE_MESS } from '../actions/messages';
-import HouseInfo from '../components/houseInfo';
+import HouseInfo from './houseInfo';
 import loadImg from '../assets/loadImg.gif';
 
 const HouseDetail = () => {
@@ -39,7 +39,6 @@ const HouseDetail = () => {
   function createImage(imageObj) {
     try {
       const urlCall = URL + IMAGES;
-      console.log(urlCall);
       axios
         .post(
           urlCall,
@@ -107,6 +106,32 @@ const HouseDetail = () => {
     );
   }
 
+  function handleDelete() {
+    try {
+      const urlCall = `${URL}${PLACES}/${place.id}`;
+      axios
+        .delete(
+          urlCall,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          },
+        )
+        .then(response => {
+          if (response) {
+            dispatch(housesLoad());
+            history.push('/');
+          }
+        });
+    } catch (error) {
+      dispatch({
+        type: CHANGE_MESS,
+        payload: error,
+      });
+    }
+  }
+
   return (
     <div>
       { housesState.isFetching
@@ -115,11 +140,19 @@ const HouseDetail = () => {
           <img className="image-load" src={loadImg} alt="loadingImage" />
         </div>
         )}
+      { isOwner
+        && (
+          <div className="d-flex justify-content-center mb-4">
+            <Button onClick={() => handleDelete()} variant="danger" type="submit">
+              REMOVE PLACE
+            </Button>
+          </div>
+        )}
       { !housesState.isFetching && place
         && (
         <div className="d-flex justify-content-center flex-column align-items-center">
           <h1>House</h1>
-          <HouseInfo place={place} />
+          <HouseInfo place={place} isOwner={isOwner} />
           <div className="px-4 w-100">
             <Button block size="lg" type="button" variant="danger">
               RENT

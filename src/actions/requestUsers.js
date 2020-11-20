@@ -139,7 +139,6 @@ export const userAutoLogIn = () => async dispatch => {
 };
 
 export const userLogout = () => async dispatch => {
-  console.log('userlogout here');
   try {
     dispatch({
       type: LOGOUT_USER,

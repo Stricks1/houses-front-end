@@ -114,6 +114,21 @@ code {
   font-size: 0.8em;
 }
 
+.remove-image {
+  position: relative;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-75px);
+}
+
+.carousel-inner {
+  overflow: visible !important;
+}
+
+.carousel-indicators {
+  top: 0 !important;
+}
+
 @media all and (min-width: 400px) {
   .Login {
     padding: 60px 0;

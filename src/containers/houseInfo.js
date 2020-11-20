@@ -1,16 +1,20 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/require-default-props */
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Carousel from 'react-bootstrap/Carousel';
+import Button from 'react-bootstrap/Button';
 import '../index.css';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { housesLoad } from '../actions/requestHouses';
+import { URL, IMAGES } from '../helpers/constants';
 import { CHANGE_MESS } from '../actions/messages';
 
 // <button className="d-flex mx-auto">Teste</button>
 
-const HouseInfo = ({ place }) => {
+const HouseInfo = ({ place, isOwner }) => {
   const [index, setIndex] = useState(0);
   const dispatch = useDispatch();
   if (place.images.length === 0) {
@@ -20,6 +24,30 @@ const HouseInfo = ({ place }) => {
   const handleSelect = selectedIndex => {
     setIndex(selectedIndex);
   };
+  function handleDeleteImage(imgId) {
+    try {
+      const urlCall = `${URL}${IMAGES}/${imgId}`;
+      axios
+        .delete(
+          urlCall,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          },
+        )
+        .then(response => {
+          if (response) {
+            dispatch(housesLoad());
+          }
+        });
+    } catch (error) {
+      dispatch({
+        type: CHANGE_MESS,
+        payload: error,
+      });
+    }
+  }
 
   useEffect(() => {
     dispatch({
@@ -46,13 +74,23 @@ const HouseInfo = ({ place }) => {
           interval={20000}
         >
           {place.images.map(image => (
-            <Carousel.Item key={image.id}>
+            <Carousel.Item key={`image${image.id}`}>
               <img
                 className="d-block w-100"
                 src={image.url}
                 alt={image.id}
               />
               <Carousel.Caption />
+              {((image.id !== 0 && isOwner)
+                ? (
+                  <div className="remove-image justify-content-center mb-4">
+                    <Button onClick={() => handleDeleteImage(image.id)} variant="danger" type="submit">
+                      REMOVE IMAGE
+                    </Button>
+                  </div>
+                )
+                : (<span />)
+             )}
             </Carousel.Item>
           ))}
         </Carousel>
@@ -72,6 +110,7 @@ const HouseInfo = ({ place }) => {
 
 HouseInfo.propTypes = {
   place: PropTypes.any,
+  isOwner: PropTypes.bool.isRequired,
 };
 
 export default withRouter(HouseInfo);

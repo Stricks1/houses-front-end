@@ -5,7 +5,6 @@ import '../index.css';
 import PropTypes from 'prop-types';
 
 const ErrorItem = ({ itemError }) => {
-  console.log(itemError);
   const label = itemError[0];
   const problems = itemError[1];
   return (
