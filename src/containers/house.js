@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { housesLoad } from '../actions/requestHouses';
+import { favoritesLoad } from '../actions/requestFavorites';
 import { URL, IMAGES, PLACES } from '../helpers/constants';
 import { CHANGE_MESS } from '../actions/messages';
 import HouseInfo from './houseInfo';
@@ -14,6 +15,7 @@ import loadImg from '../assets/loadImg.gif';
 const HouseDetail = () => {
   const dispatch = useDispatch();
   const housesState = useSelector(state => state.houses);
+  const favoritesState = useSelector(state => state.favorites);
   const usersState = useSelector(state => state.users);
   const message = useSelector(state => state.message);
 
@@ -34,6 +36,7 @@ const HouseDetail = () => {
       return;
     }
     dispatch(housesLoad());
+    dispatch(favoritesLoad());
   }, [dispatch, history]);
 
   function createImage(imageObj) {
@@ -134,7 +137,7 @@ const HouseDetail = () => {
 
   return (
     <div>
-      { housesState.isFetching
+      { (housesState.isFetching || favoritesState.isFetching)
         && (
         <div data-testid="loading" className="bg-load">
           <img className="image-load" src={loadImg} alt="loadingImage" />
@@ -148,11 +151,15 @@ const HouseDetail = () => {
             </Button>
           </div>
         )}
-      { !housesState.isFetching && place
+      { !housesState.isFetching && place && !favoritesState.isFetching
         && (
         <div className="d-flex justify-content-center flex-column align-items-center">
           <h1>House</h1>
-          <HouseInfo place={place} isOwner={isOwner} />
+          <HouseInfo
+            place={place}
+            isOwner={isOwner}
+            isFav={favoritesState.favorite.includes(parseInt(place.id, 10))}
+          />
           <div className="px-4 w-100">
             <Button block size="lg" type="button" variant="danger">
               RENT

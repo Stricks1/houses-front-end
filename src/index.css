@@ -110,8 +110,10 @@ code {
 
 .favClick {
   cursor: pointer;
-  color: rgb(170, 26, 26);
-  font-size: 0.8em;
+  color: rgb(194, 183, 36);
+  font-size: 2em;
+  padding-right: 5px;
+  padding-top: 5px;
 }
 
 .remove-image {
@@ -127,6 +129,15 @@ code {
 
 .carousel-indicators {
   top: 0 !important;
+}
+
+.favorite-container {
+  color: yellow;
+  position: relative;
+  left: 20px;
+  top: 60px;
+  margin-top: -48px;
+  font-size: 2em;
 }
 
 @media all and (min-width: 400px) {

@@ -37,6 +37,13 @@ const Nav = () => {
             >
               <li id="add-place">Add a Rent Place</li>
             </Link>
+            <Link
+              className="menu-item"
+              to="/favorites"
+              key="favorites"
+            >
+              <li id="add-place">Favorite Places</li>
+            </Link>
             <LogOut />
           </Dropdown.Menu>
         </Dropdown>

@@ -14,9 +14,10 @@ import { CHANGE_MESS } from '../actions/messages';
 
 // <button className="d-flex mx-auto">Teste</button>
 
-const HouseInfo = ({ place, isOwner }) => {
+const HouseInfo = ({ place, isOwner, isFav }) => {
   const [index, setIndex] = useState(0);
   const dispatch = useDispatch();
+  console.log(isFav);
   if (place.images.length === 0) {
     const fillerImg = { url: 'https://dummyimage.com/600x500/ffffff/000000.png&text=NO+IMAGE', id: 0 };
     place.images.push(fillerImg);
@@ -59,8 +60,28 @@ const HouseInfo = ({ place, isOwner }) => {
       case 3:
         return 'Room';
       default:
-        return 'foo';
+        return '';
     }
+  }
+
+  function removeFavorite() {
+    console.log('remove fav here');
+  }
+
+  function addFavorite() {
+    console.log('add fav here');
+  }
+
+  function changeClassUp() {
+    const starEl = document.getElementById('starFav');
+    starEl.classList.remove('far');
+    starEl.classList.add('fas');
+  }
+
+  function changeClassOut() {
+    const starEl = document.getElementById('starFav');
+    starEl.classList.remove('fas');
+    starEl.classList.add('far');
   }
 
   useEffect(() => {
@@ -77,9 +98,23 @@ const HouseInfo = ({ place, isOwner }) => {
           <h3>{place.description.city}</h3>
           <p>{place.description.country}</p>
         </div>
-        <div>
-          <span className="favClick">Add Favorite</span>
-        </div>
+        { isFav ? (
+          <div tabIndex={0} role="button" onClick={() => removeFavorite()} onKeyDown={() => removeFavorite()}>
+            <i className="fas fa-star favClick" />
+          </div>
+        )
+          : (
+            <div tabIndex={0} role="button" onClick={() => addFavorite()} onKeyDown={() => addFavorite()}>
+              <i
+                id="starFav"
+                className="far fa-star favClick"
+                onMouseOver={() => changeClassUp()}
+                onFocus={() => changeClassUp()}
+                onMouseOut={() => changeClassOut()}
+                onBlur={() => changeClassOut()}
+              />
+            </div>
+          )}
       </div>
       <div className="d-flex flex-column align-items-center">
         <Carousel
@@ -129,6 +164,7 @@ const HouseInfo = ({ place, isOwner }) => {
 HouseInfo.propTypes = {
   place: PropTypes.any,
   isOwner: PropTypes.bool.isRequired,
+  isFav: PropTypes.bool.isRequired,
 };
 
 export default withRouter(HouseInfo);

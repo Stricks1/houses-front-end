@@ -5,7 +5,7 @@ import '../index.css';
 import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const Place = ({ place }) => {
+const Place = ({ place, isFav }) => {
   const {
     id, description, images,
   } = place;
@@ -16,6 +16,9 @@ const Place = ({ place }) => {
   return (
     <div className="single-card-container">
       <Link className="text-decoration-none" to={`/house/${id}`} id="link-detail">
+        <div className="favorite-container">
+          { isFav ? (<i className="fas fa-star" />) : (<i className="far fa-star" />)}
+        </div>
         <div className="image-container">
           <img className="card-image" src={images[0].url} alt={description.address} />
         </div>
@@ -43,6 +46,7 @@ const Place = ({ place }) => {
 
 Place.propTypes = {
   place: PropTypes.any,
+  isFav: PropTypes.bool.isRequired,
 };
 
 export default withRouter(Place);
