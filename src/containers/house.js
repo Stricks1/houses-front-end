@@ -4,7 +4,9 @@ import { useParams} from "react-router";
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { housesLoad } from '../actions/requestHouses';
+import HouseInfo from '../components/houseInfo';
 import loadImg from '../assets/loadImg.gif';
+import Button from "react-bootstrap/Button";
 
 const HouseDetail = () => {
   const dispatch = useDispatch();
@@ -16,6 +18,7 @@ const HouseDetail = () => {
     place = places.places.find(element => element.id === id);
   }
   let history = useHistory();
+  console.log(place)
 
   useEffect(() => {
     if (!localStorage.getItem("token")){
@@ -34,8 +37,12 @@ const HouseDetail = () => {
         </div>
         )}
       { !housesState.isFetching && place &&
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center flex-column align-items-center">
           <h1>House</h1>
+          <HouseInfo place={place} />
+          <Button block size="lg" type="button" variant="danger">
+            RENT
+          </Button>
         </div>
       }
     </div>

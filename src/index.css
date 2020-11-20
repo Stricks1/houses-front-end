@@ -101,10 +101,17 @@ code {
   left: 0;
   width: 100%;
   background-color: white;
+  z-index: 50;
 }
 
 .main-container {
   margin-top: 70px;
+}
+
+.favClick {
+  cursor: pointer;
+  color: rgb(170, 26, 26);
+  font-size: 0.8em;
 }
 
 @media all and (min-width: 400px) {
