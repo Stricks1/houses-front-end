@@ -24,6 +24,7 @@ const HouseInfo = ({ place, isOwner }) => {
   const handleSelect = selectedIndex => {
     setIndex(selectedIndex);
   };
+
   function handleDeleteImage(imgId) {
     try {
       const urlCall = `${URL}${IMAGES}/${imgId}`;
@@ -46,6 +47,19 @@ const HouseInfo = ({ place, isOwner }) => {
         type: CHANGE_MESS,
         payload: error,
       });
+    }
+  }
+
+  function renderType(rentType) {
+    switch (rentType) {
+      case 1:
+        return 'House';
+      case 2:
+        return 'Apartment';
+      case 3:
+        return 'Room';
+      default:
+        return 'foo';
     }
   }
 
@@ -96,7 +110,11 @@ const HouseInfo = ({ place, isOwner }) => {
         </Carousel>
         <div className="d-flex flex-column h-100 align-self-start">
           <div className="city-info mt-4">
-            <p>{place.description.address}</p>
+            <p>
+              <b>{renderType(place.description.location_type)}</b>
+              :&nbsp;
+              {place.description.address}
+            </p>
             <h5>
               $
               {parseFloat(place.description.daily_price).toFixed(2)}
