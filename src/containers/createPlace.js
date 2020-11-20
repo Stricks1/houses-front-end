@@ -17,8 +17,8 @@ const CreatePlaceForm = () => {
   let history = useHistory();
 
   useEffect(() => {
-    if (userState.user.username) {
-      history.push('/')
+    if (!userState.user.username) {
+      history.push('/login')
       return
     }
   }, [history, userState.user.username]);
@@ -69,12 +69,13 @@ const CreatePlaceForm = () => {
               return
             }
             let place = {
-              location_type: locationType.current.value,
+              location_type: locationType.value,
               address: address.value,
               city: city.value,
               country: country.value,
               daily_price: dailyPrice.value,
             }
+            console.log(place)
             //dispatch(userRegistration(user));
           }}
         >
@@ -90,25 +91,25 @@ const CreatePlaceForm = () => {
             <option value="3">Room</option>
           </Form.Control>
         </Form.Group>
-        <Form.Group size="lg" controlId="email">
+        <Form.Group size="lg" controlId="address">
           <Form.Label>Description</Form.Label>
           <Form.Control ref={self => (address = self)} 
             placeholder="Type Description..."
           />
         </Form.Group>
-        <Form.Group size="lg" controlId="Password">
+        <Form.Group size="lg" controlId="city">
           <Form.Label>City</Form.Label>
           <Form.Control ref={self => (city = self)} 
             placeholder="City..."
           />
         </Form.Group>
-        <Form.Group size="lg" controlId="ConfirmPassword">
+        <Form.Group size="lg" controlId="country">
           <Form.Label>Country</Form.Label>
           <Form.Control ref={self => (country = self)} 
             placeholder="Country..."
           />
         </Form.Group>
-        <Form.Group size="lg" controlId="ConfirmPassword">
+        <Form.Group size="lg" controlId="dailyPrice">
           <Form.Label>Daily Price</Form.Label>
           <Form.Control type='number' step="0.01" ref={self => (dailyPrice = self)} 
             placeholder="Daily Price..."
