@@ -17,6 +17,7 @@ const CreatePlaceForm = () => {
   let dailyPrice
   const dispatch = useDispatch();
   const userState = useSelector(state => state.users);
+  const message = useSelector(state => state.message);
   let history = useHistory();
 
   useEffect(() => {
@@ -163,6 +164,18 @@ const CreatePlaceForm = () => {
           Add Place
         </Button>
         </Form>
+        { message && 
+          <div className="d-flex flex-column align-items-center mt-3 text-danger">
+            <div>
+              <span> 
+                <b>Error:</b> 
+              </span>
+              <span>
+                {message}
+              </span>
+            </div>
+          </div>
+        }
       </div>)
       }
     </div>

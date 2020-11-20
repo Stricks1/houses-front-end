@@ -1,9 +1,11 @@
-
+import axios from 'axios';
 import React, { useEffect }  from 'react';
 import { useParams} from "react-router";
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { housesLoad } from '../actions/requestHouses';
+import { URL, IMAGES } from '../helpers/constants';
+import { CHANGE_MESS } from '../actions/messages';
 import HouseInfo from '../components/houseInfo';
 import loadImg from '../assets/loadImg.gif';
 import Button from "react-bootstrap/Button";
@@ -13,7 +15,8 @@ const HouseDetail = () => {
   const dispatch = useDispatch();
   const housesState = useSelector(state => state.houses);
   const usersState = useSelector(state => state.users);
-  
+  const message = useSelector(state => state.message);
+
   let urlImage
   let { id } = useParams();
   const { places } = housesState
@@ -32,6 +35,49 @@ const HouseDetail = () => {
     }
     dispatch(housesLoad());
   }, [dispatch, history]);
+
+  function createImage(imageObj) {
+    console.log('call create image')
+    try {
+      const urlCall = URL + IMAGES;
+      axios
+      .post(
+        urlCall,
+        {
+          image: imageObj
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem("token"),
+          }
+        }
+      )
+      .then(response => {
+        console.log('veio response')
+        console.log(response)
+        if (response.data.data.type === "image") {
+            console.log('response dispatch')
+          dispatch(housesLoad());
+          console.log('response change page')
+          history.push('/')
+          return
+        } else {
+            console.log('response error')
+          dispatch({
+            type: CHANGE_MESS,
+            payload: "Error Creating Place",
+          });
+        }
+      });
+    } catch (error) {
+        console.log('veio error')
+        console.log(error)
+      dispatch({
+        type: CHANGE_MESS,
+        payload: error,
+      });
+    }
+  };
 
   return (
     <div>
@@ -65,8 +111,8 @@ const HouseDetail = () => {
                 image_url: urlImage.value,
                 place_id: place.id
               }
-              console.log(image)
-              //dispatch(userRegistration(user));
+               console.log(image)
+              //createImage(image);
             }}
           >
           
@@ -80,6 +126,18 @@ const HouseDetail = () => {
               Add Image
             </Button>
           </Form>
+        </div>
+      }
+      { message && 
+        <div className="d-flex flex-column align-items-center mt-3 text-danger">
+          <div>
+            <span> 
+              <b>Error:</b> 
+            </span>
+            <span>
+              {message}
+            </span>
+          </div>
         </div>
       }
     </div>
