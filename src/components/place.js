@@ -1,6 +1,9 @@
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/require-default-props */
 import React from 'react';
 import '../index.css';
 import { withRouter, Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const Place = ({ place }) => {
   const {
@@ -36,6 +39,10 @@ const Place = ({ place }) => {
       </Link>
     </div>
   );
+};
+
+Place.propTypes = {
+  place: PropTypes.any,
 };
 
 export default withRouter(Place);

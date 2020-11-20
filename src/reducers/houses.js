@@ -19,7 +19,7 @@ const places = (state = initialState, action) => {
         ...state,
         isFetching: true,
       };
-    case RECEIVE_HOUSES:
+    case RECEIVE_HOUSES: {
       const objectFormated = [];
       payload.data.forEach(element => {
         const imgArr = [];
@@ -40,6 +40,7 @@ const places = (state = initialState, action) => {
         isFetching: false,
         places: arrPlacesFormated,
       };
+    }
     case ERROR_FETCHING_HOUSES:
       return {
         ...state,

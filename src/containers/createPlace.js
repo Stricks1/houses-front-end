@@ -10,11 +10,11 @@ import { housesLoad } from '../actions/requestHouses';
 import loadImg from '../assets/loadImg.gif';
 
 const CreatePlaceForm = () => {
-  let locationType;
-  let address;
-  let city;
-  let country;
-  let dailyPrice;
+  let locationType = React.createRef();
+  let address = React.createRef();
+  let city = React.createRef();
+  let country = React.createRef();
+  let dailyPrice = React.createRef();
   const dispatch = useDispatch();
   const userState = useSelector(state => state.users);
   const message = useSelector(state => state.message);
@@ -119,7 +119,7 @@ const CreatePlaceForm = () => {
             <Form.Control
               as="select"
               custom
-              ref={self => (locationType = self)}
+              ref={self => { (locationType = self); }}
             >
               <option value="1">House</option>
               <option value="2">Apartment</option>
@@ -129,21 +129,21 @@ const CreatePlaceForm = () => {
           <Form.Group size="lg" controlId="address">
             <Form.Label>Description</Form.Label>
             <Form.Control
-              ref={self => (address = self)}
+              ref={self => { (address = self); }}
               placeholder="Type Description..."
             />
           </Form.Group>
           <Form.Group size="lg" controlId="city">
             <Form.Label>City</Form.Label>
             <Form.Control
-              ref={self => (city = self)}
+              ref={self => { (city = self); }}
               placeholder="City..."
             />
           </Form.Group>
           <Form.Group size="lg" controlId="country">
             <Form.Label>Country</Form.Label>
             <Form.Control
-              ref={self => (country = self)}
+              ref={self => { (country = self); }}
               placeholder="Country..."
             />
           </Form.Group>
@@ -152,7 +152,7 @@ const CreatePlaceForm = () => {
             <Form.Control
               type="number"
               step="0.01"
-              ref={self => (dailyPrice = self)}
+              ref={self => { (dailyPrice = self); }}
               placeholder="Daily Price..."
             />
           </Form.Group>

@@ -9,8 +9,8 @@ import logo from '../assets/loginImg.png';
 import loadImg from '../assets/loadImg.gif';
 
 const LogInForm = () => {
-  let username;
-  let password;
+  let username = React.createRef();
+  let password = React.createRef();
   const dispatch = useDispatch();
   const userState = useSelector(state => state.users);
   const history = useHistory();
@@ -62,7 +62,7 @@ const LogInForm = () => {
           <Form.Group size="lg" controlId="username">
             <Form.Label>Username</Form.Label>
             <Form.Control
-              ref={self => (username = self)}
+              ref={self => { (username = self); }}
               autoFocus
               placeholder="Type your Username..."
             />
@@ -71,7 +71,7 @@ const LogInForm = () => {
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
-              ref={self => (password = self)}
+              ref={self => { (password = self); }}
               placeholder="Type your Password..."
             />
           </Form.Group>

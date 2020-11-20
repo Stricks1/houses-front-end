@@ -54,11 +54,11 @@ const Nav = () => {
   return (
     <nav className="py-2 w-100 border-bottom">
       <ul id="nav-links" className="d-flex list-nav justify-content-between w-100">
-        <Link className="list-nav-item" to="/login" key="login">
-          <li onClick={() => handleClick()} id="login">Log In</li>
+        <Link onClick={() => handleClick()} className="list-nav-item" to="/login" key="login">
+          <li id="login">Log In</li>
         </Link>
-        <Link className="list-nav-item" to="/register" key={userState.loggedIn}>
-          <li onClick={() => handleClick()} id="register">Sign Up</li>
+        <Link onClick={() => handleClick()} className="list-nav-item" to="/register" key={userState.loggedIn}>
+          <li id="register">Sign Up</li>
         </Link>
       </ul>
     </nav>

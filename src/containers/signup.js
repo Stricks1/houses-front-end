@@ -8,10 +8,10 @@ import ErrorMessageContainer from './errorMessages';
 import loadImg from '../assets/loadImg.gif';
 
 const SignupForm = () => {
-  let username;
-  let email;
-  let password;
-  let password_confirmation;
+  let username = React.createRef();
+  let email = React.createRef();
+  let password = React.createRef();
+  let passwordConfirmation = React.createRef();
   const dispatch = useDispatch();
   const userState = useSelector(state => state.users);
   const history = useHistory();
@@ -39,15 +39,15 @@ const SignupForm = () => {
             username.classList.remove('error');
             email.classList.remove('error');
             password.classList.remove('error');
-            password_confirmation.classList.remove('error');
+            passwordConfirmation.classList.remove('error');
             if (!password.value.trim()) {
               password.classList.add('error');
             }
             if (!email.value.trim()) {
               email.classList.add('error');
             }
-            if (!password_confirmation.value.trim()) {
-              password_confirmation.classList.add('error');
+            if (!passwordConfirmation.value.trim()) {
+              passwordConfirmation.classList.add('error');
             }
             if (!username.value.trim()) {
               username.classList.add('error');
@@ -62,33 +62,33 @@ const SignupForm = () => {
               password.focus();
               return;
             }
-            if (!password_confirmation.value.trim()) {
-              password_confirmation.focus();
+            if (!passwordConfirmation.value.trim()) {
+              passwordConfirmation.focus();
               return;
             }
             const user = {
               username: username.value,
               email: email.value,
               password: password.value,
-              password_confirmation: password_confirmation.value,
+              password_confirmation: passwordConfirmation.value,
             };
             dispatch(userRegistration(user));
             password.value = '';
-            password_confirmation.value = '';
+            passwordConfirmation.value = '';
           }}
         >
           <Form.Group size="lg" controlId="username">
             <Form.Label>Username</Form.Label>
             <Form.Control
               autoFocus
-              ref={self => (username = self)}
+              ref={self => { (username = self); }}
               placeholder="Type your Username..."
             />
           </Form.Group>
           <Form.Group size="lg" controlId="email">
             <Form.Label>Email</Form.Label>
             <Form.Control
-              ref={self => (email = self)}
+              ref={self => { (email = self); }}
               placeholder="Type your Email..."
             />
           </Form.Group>
@@ -96,7 +96,7 @@ const SignupForm = () => {
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
-              ref={self => (password = self)}
+              ref={self => { (password = self); }}
               placeholder="Create a Secure Password..."
             />
           </Form.Group>
@@ -104,7 +104,7 @@ const SignupForm = () => {
             <Form.Label>Confirm Password</Form.Label>
             <Form.Control
               type="password"
-              ref={self => (password_confirmation = self)}
+              ref={self => { (passwordConfirmation = self); }}
               placeholder="Confirm Password..."
             />
           </Form.Group>

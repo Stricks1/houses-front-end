@@ -1,9 +1,12 @@
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/require-default-props */
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { CHANGE_MESS } from '../actions/messages';
 import Carousel from 'react-bootstrap/Carousel';
 import '../index.css';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { CHANGE_MESS } from '../actions/messages';
 
 // <button className="d-flex mx-auto">Teste</button>
 
@@ -11,7 +14,7 @@ const HouseInfo = ({ place }) => {
   const [index, setIndex] = useState(0);
   const dispatch = useDispatch();
   if (place.images.length === 0) {
-    const fillerImg = { url: 'https://dummyimage.com/600x500/ffffff/000000.png&text=NO+IMAGE' };
+    const fillerImg = { url: 'https://dummyimage.com/600x500/ffffff/000000.png&text=NO+IMAGE', id: 0 };
     place.images.push(fillerImg);
   }
   const handleSelect = selectedIndex => {
@@ -66,4 +69,9 @@ const HouseInfo = ({ place }) => {
     </div>
   );
 };
+
+HouseInfo.propTypes = {
+  place: PropTypes.any,
+};
+
 export default withRouter(HouseInfo);

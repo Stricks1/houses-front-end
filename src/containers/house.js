@@ -17,7 +17,7 @@ const HouseDetail = () => {
   const usersState = useSelector(state => state.users);
   const message = useSelector(state => state.message);
 
-  let urlImage;
+  let urlImage = React.createRef();
   const { id } = useParams();
   const { places } = housesState;
   let place = false;
@@ -75,17 +75,21 @@ const HouseDetail = () => {
       const timeout = timeoutT || 5000;
       let timer; const
         img = new Image();
-      img.onerror = img.onabort = function () {
+      img.onerror = function error() {
         clearTimeout(timer);
-        reject(false);
+        reject(new Error(false));
       };
-      img.onload = function () {
+      img.onabort = function error() {
+        clearTimeout(timer);
+        reject(new Error(false));
+      };
+      img.onload = function sucess() {
         clearTimeout(timer);
         resolve(true);
       };
       timer = setTimeout(() => {
         img.src = '//!!!!/test.jpg';
-        reject(false);
+        reject(new Error(false));
       }, timeout);
       img.src = url;
     }));
@@ -147,7 +151,7 @@ const HouseDetail = () => {
             <Form.Group size="lg" controlId="address">
               <Form.Label>Add new Image URL</Form.Label>
               <Form.Control
-                ref={self => (urlImage = self)}
+                ref={self => { (urlImage = self); }}
                 placeholder="Add URL image..."
               />
             </Form.Group>
