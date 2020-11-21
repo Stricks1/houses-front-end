@@ -29,7 +29,7 @@ export const housesLoad = (redirect = 0, history = null) => async dispatch => {
     error => {
       dispatch({
         type: ERROR_FETCHING_HOUSES,
-        payload: error.response.data,
+        payload: error,
       });
     });
   } catch (error) {

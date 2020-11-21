@@ -26,7 +26,7 @@ export const favoritesLoad = () => async dispatch => {
     error => {
       dispatch({
         type: ERROR_FETCHING_FAVORITES,
-        payload: error.response.data,
+        payload: error,
       });
     });
   } catch (error) {
