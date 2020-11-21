@@ -54,12 +54,16 @@ const EditPlaceForm = () => {
           },
         )
         .then(response => {
-          if (response.data.data.type === 'place') {
+          if ((typeof response.data.data !== 'undefined') && response.data.data.type === 'place') {
             dispatch(housesLoad(response.data.data.id, history));
           } else {
+            let errorMessage = 'Error Editing Place';
+            if (typeof response.data.status !== 'undefined') {
+              errorMessage = response.data.status;
+            }
             dispatch({
               type: CHANGE_MESS,
-              payload: 'Error Editing Place',
+              payload: errorMessage,
             });
           }
         });
@@ -182,6 +186,7 @@ const EditPlaceForm = () => {
             <div>
               <span>
                 <b>Error:</b>
+                {' '}
               </span>
               <span>
                 {message}
