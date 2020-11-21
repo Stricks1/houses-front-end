@@ -32,7 +32,7 @@ const HouseDetail = () => {
 
   useEffect(() => {
     if (!localStorage.getItem('token')) {
-      history.push('/login');
+      history.push('/');
       return;
     }
     dispatch(housesLoad());
@@ -124,7 +124,7 @@ const HouseDetail = () => {
         .then(response => {
           if (response) {
             dispatch(housesLoad());
-            history.push('/');
+            history.push('/home');
           }
         });
     } catch (error) {

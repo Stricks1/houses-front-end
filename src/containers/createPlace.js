@@ -22,7 +22,7 @@ const CreatePlaceForm = () => {
 
   useEffect(() => {
     if (!userState.user.username) {
-      history.push('/login');
+      history.push('/');
     }
   }, [history, userState.user.username]);
 

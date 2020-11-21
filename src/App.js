@@ -17,11 +17,11 @@ function App() {
       </div>
       <div className="main-container">
         <Switch>
-          <Route path="/" exact component={HousesList} />
+          <Route path="/home" exact component={HousesList} />
           <Route path="/favorites" exact component={FavList} />
           <Route path="/add-place" exact component={CreatePlaceForm} />
           <Route path="/house/:id" exact component={HouseDetail} />
-          <Route path="/login" exact component={LogInForm} />
+          <Route path="/" exact component={LogInForm} />
           <Route path="/register" exact component={SignupForm} />
         </Switch>
       </div>

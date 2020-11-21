@@ -53,7 +53,7 @@ const Nav = () => {
   return (
     <nav className="py-2 w-100 border-bottom">
       <ul id="nav-links" className="d-flex list-nav justify-content-between w-100">
-        <Link onClick={() => handleClick()} className="list-nav-item" to="/login" key="login">
+        <Link onClick={() => handleClick()} className="list-nav-item" to="/" key="login">
           <li id="login">Log In</li>
         </Link>
         <Link onClick={() => handleClick()} className="list-nav-item" to="/register" key={userState.loggedIn}>

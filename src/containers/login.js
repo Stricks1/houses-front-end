@@ -17,7 +17,7 @@ const LogInForm = () => {
 
   useEffect(() => {
     if (userState.user.username) {
-      history.push('/');
+      history.push('/home');
     }
   }, [history, userState.user.username]);
 
