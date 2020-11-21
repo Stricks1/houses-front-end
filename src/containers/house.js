@@ -161,7 +161,7 @@ const HouseDetail = () => {
       { !housesState.isFetching && place && !favoritesState.isFetching
         && (
         <div className="d-flex justify-content-center flex-column align-items-center max-550 m-auto">
-          <h1>House</h1>
+          <h1>Place</h1>
           <HouseInfo
             place={place}
             isOwner={isOwner}
