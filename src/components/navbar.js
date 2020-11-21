@@ -24,37 +24,19 @@ const Nav = () => {
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
-            <Dropdown.Item>
-              <Link className="menu-item" to="/" key="places">
-                <li id="home">Places</li>
-              </Link>
+            <Dropdown.Item as={Link} className="pl-2" to="/">
+              Places
             </Dropdown.Item>
-            <Dropdown.Item>
-              <Link className="menu-item" to="/rent_dates" key="rentEvents">
-                <li id="dates">Schedule Rents</li>
-              </Link>
+            <Dropdown.Item as={Link} className="pl-2" to="/rent_dates">
+              Schedule Rents
             </Dropdown.Item>
-            <Dropdown.Item>
-              <Link
-                className="menu-item"
-                to="/add-place"
-                key="add-place"
-              >
-                <li id="add-place">Add a Rent Place</li>
-              </Link>
+            <Dropdown.Item as={Link} className="pl-2" to="/add-place">
+              Add a Rent Place
             </Dropdown.Item>
-            <Dropdown.Item>
-              <Link
-                className="menu-item"
-                to="/favorites"
-                key="favorites"
-              >
-                <li id="add-place">Favorite Places</li>
-              </Link>
+            <Dropdown.Item as={Link} className="pl-2" to="/favorites">
+              Favorite Places
             </Dropdown.Item>
-            <Dropdown.Item>
-              <LogOut />
-            </Dropdown.Item>
+            <Dropdown.Item as={LogOut} className="pl-2" />
           </Dropdown.Menu>
         </Dropdown>
         <div className="mr-4 align-self-center">
