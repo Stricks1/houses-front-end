@@ -138,7 +138,7 @@ export const userAutoLogIn = () => async dispatch => {
   }
 };
 
-export const userLogout = () => async dispatch => {
+export const userLogout = (history = null) => async dispatch => {
   try {
     dispatch({
       type: LOGOUT_USER,
@@ -156,6 +156,7 @@ export const userLogout = () => async dispatch => {
         type: USER_LOGOUT,
         payload: response.data,
       });
+      history.push('/login');
     }, () => {
       localStorage.removeItem('token');
       dispatch({

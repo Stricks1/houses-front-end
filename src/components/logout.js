@@ -8,8 +8,7 @@ const LogOut = () => {
   const history = useHistory();
 
   function handleClick() {
-    dispatch(userLogout());
-    history.push('/login');
+    dispatch(userLogout(history));
   }
 
   return (
