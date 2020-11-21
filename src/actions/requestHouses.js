@@ -5,7 +5,7 @@ export const LOAD_HOUSES = 'LOAD_HOUSES';
 export const RECEIVE_HOUSES = 'RECEIVE_HOUSES';
 export const ERROR_FETCHING_HOUSES = 'ERROR_FETCHING_HOUSES';
 
-export const housesLoad = () => async dispatch => {
+export const housesLoad = (redirect = 0, history = null) => async dispatch => {
   try {
     dispatch({
       type: LOAD_HOUSES,
@@ -21,6 +21,15 @@ export const housesLoad = () => async dispatch => {
       dispatch({
         type: RECEIVE_HOUSES,
         payload: dataReturn,
+      });
+      if (redirect > 0) {
+        history.push(`/house/${redirect}`);
+      }
+    },
+    error => {
+      dispatch({
+        type: ERROR_FETCHING_HOUSES,
+        payload: error.response.data,
       });
     });
   } catch (error) {

@@ -43,8 +43,7 @@ const CreatePlaceForm = () => {
         )
         .then(response => {
           if (response.data.data.type === 'place') {
-            dispatch(housesLoad());
-            history.push('/');
+            dispatch(housesLoad(response.data.data.id, history));
           } else {
             dispatch({
               type: CHANGE_MESS,
