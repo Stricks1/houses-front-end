@@ -177,7 +177,7 @@ const EditPlaceForm = () => {
             />
           </Form.Group>
           <Button block size="lg" type="submit">
-            Add Place
+            Edit Place
           </Button>
         </Form>
         { message
