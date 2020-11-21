@@ -6,6 +6,7 @@ import HousesList from './containers/home';
 import FavList from './containers/favorites';
 import HouseDetail from './containers/house';
 import CreatePlaceForm from './containers/createPlace';
+import EditPlaceForm from './containers/editPlace';
 import Nav from './components/navbar';
 import './index.css';
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/home" exact component={HousesList} />
           <Route path="/favorites" exact component={FavList} />
           <Route path="/add-place" exact component={CreatePlaceForm} />
+          <Route path="/edit/:id" exact component={EditPlaceForm} />
           <Route path="/house/:id" exact component={HouseDetail} />
           <Route path="/" exact component={LogInForm} />
           <Route path="/register" exact component={SignupForm} />

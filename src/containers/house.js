@@ -135,6 +135,10 @@ const HouseDetail = () => {
     }
   }
 
+  function handleEdit() {
+    history.push(`/edit/${place.id}`);
+  }
+
   return (
     <div>
       { (housesState.isFetching || favoritesState.isFetching)
@@ -146,8 +150,11 @@ const HouseDetail = () => {
       { isOwner
         && (
           <div className="d-flex justify-content-center mb-4">
-            <Button onClick={() => handleDelete()} variant="danger" type="submit">
+            <Button className="mr-4" onClick={() => handleDelete()} variant="danger" type="submit">
               REMOVE PLACE
+            </Button>
+            <Button className="ml-4" onClick={() => handleEdit()} variant="danger" type="submit">
+              EDIT PLACE
             </Button>
           </div>
         )}

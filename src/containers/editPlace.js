@@ -1,5 +1,8 @@
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/require-default-props */
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
@@ -9,28 +12,37 @@ import { CHANGE_MESS } from '../actions/messages';
 import { housesLoad } from '../actions/requestHouses';
 import loadImg from '../assets/loadImg.gif';
 
-const CreatePlaceForm = () => {
+const EditPlaceForm = () => {
+  const dispatch = useDispatch();
+  const userState = useSelector(state => state.users);
+  const housesState = useSelector(state => state.houses);
+  const message = useSelector(state => state.message);
+  const history = useHistory();
   let locationType = React.createRef();
   let address = React.createRef();
   let city = React.createRef();
   let country = React.createRef();
   let dailyPrice = React.createRef();
-  const dispatch = useDispatch();
-  const userState = useSelector(state => state.users);
-  const message = useSelector(state => state.message);
-  const history = useHistory();
+
+  const { id } = useParams();
+  const { places } = housesState;
+  let place = false;
+  if (places.places) {
+    place = places.places.find(element => element.id === id);
+  }
 
   useEffect(() => {
     if (!localStorage.getItem('token')) {
       history.push('/');
     }
+    dispatch(housesLoad());
   }, [history, userState.user.username]);
 
-  function createPlace(placeObj) {
+  function editPlace(placeObj) {
     try {
-      const urlCall = URL + PLACES;
+      const urlCall = `${URL}${PLACES}/${place.id}`;
       axios
-        .post(
+        .put(
           urlCall,
           {
             place: placeObj,
@@ -47,7 +59,7 @@ const CreatePlaceForm = () => {
           } else {
             dispatch({
               type: CHANGE_MESS,
-              payload: 'Error Creating Place',
+              payload: 'Error Editing Place',
             });
           }
         });
@@ -67,7 +79,7 @@ const CreatePlaceForm = () => {
             <img className="image-load" src={loadImg} alt="loadingImage" />
           </div>
         )}
-      { !userState.isFetching
+      { !userState.isFetching && place
       && (
       <div className="Login">
         <Form
@@ -110,12 +122,13 @@ const CreatePlaceForm = () => {
               country: country.value,
               daily_price: dailyPrice.value,
             };
-            createPlace(place);
+            editPlace(place);
           }}
         >
           <Form.Group size="lg" controlId="username">
             <Form.Label>Type Location</Form.Label>
             <Form.Control
+              defaultValue={place.description.location_type}
               as="select"
               custom
               ref={self => { (locationType = self); }}
@@ -128,6 +141,7 @@ const CreatePlaceForm = () => {
           <Form.Group size="lg" controlId="address">
             <Form.Label>Description</Form.Label>
             <Form.Control
+              defaultValue={place.description.address}
               ref={self => { (address = self); }}
               placeholder="Type Description..."
             />
@@ -135,6 +149,7 @@ const CreatePlaceForm = () => {
           <Form.Group size="lg" controlId="city">
             <Form.Label>City</Form.Label>
             <Form.Control
+              defaultValue={place.description.city}
               ref={self => { (city = self); }}
               placeholder="City..."
             />
@@ -142,6 +157,7 @@ const CreatePlaceForm = () => {
           <Form.Group size="lg" controlId="country">
             <Form.Label>Country</Form.Label>
             <Form.Control
+              defaultValue={place.description.country}
               ref={self => { (country = self); }}
               placeholder="Country..."
             />
@@ -149,6 +165,7 @@ const CreatePlaceForm = () => {
           <Form.Group size="lg" controlId="dailyPrice">
             <Form.Label>Daily Price</Form.Label>
             <Form.Control
+              defaultValue={place.description.daily_price}
               type="number"
               step="0.01"
               ref={self => { (dailyPrice = self); }}
@@ -178,4 +195,4 @@ const CreatePlaceForm = () => {
   );
 };
 
-export default CreatePlaceForm;
+export default EditPlaceForm;

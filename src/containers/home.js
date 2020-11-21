@@ -12,6 +12,7 @@ const HousesList = () => {
   const favoritesState = useSelector(state => state.favorites);
   const { places } = housesState;
   const history = useHistory();
+
   useEffect(() => {
     if (!localStorage.getItem('token')) {
       history.push('/');
