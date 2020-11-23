@@ -62,6 +62,7 @@ const LogInForm = () => {
           <Form.Group size="lg" controlId="username">
             <Form.Label>Username</Form.Label>
             <Form.Control
+              id="usernameLogin"
               ref={self => { (username = self); }}
               autoFocus
               placeholder="Type your Username..."
