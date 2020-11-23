@@ -1,68 +1,103 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
 
-## Available Scripts
+# React Front-End for rent a place
 
-In the project directory, you can run:
+On this project, I created a Front End that uses my [API](https://github.com/Stricks1/HousesApi) to manage renting places. The idea is to create a simplified version of AirBnb, where every user can register their own places for rent. For now, the Front End can handle the user signup and signing (utilizing tokens for validating the sessions/saving the machine login), each user can create edit and delete their own places and add photos for their renting places, save or remove places from their favorites and get a list of favorite places at each user.
 
-### `yarn start`
+#### Login Page
+![Login](./loginSS.png)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### Places Page
+![Places](./placesSS.png)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Table of Contents
 
-### `yarn test`
+- [Installation](#installation)
+- [Tests](#tests)
+- [Built With](#built-with)
+- [Live Version](#live-version)
+- [Future Implementations](#future-implementations)
+- [Contributing](#contributing)
+- [Acknowledgments](#acknowledgments)
+- [Authors](#author)
+- [License](#license)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `yarn build`
+You can get a local copy of the repository please run the following commands on your terminal:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+$ cd <folder>
+$ git clone https://github.com/Stricks1/houses-front-end.git
+```
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Run `npm install` in your terminal. If you are running your own API server, you need to do this extra step: change the constant URL on: client/src/helpers/constants.js for the URL you are running your server, the default URL there is a deployed version on heroku from [this repo](https://github.com/Stricks1/HousesApi). Run `npm start` to run on your local machine. If you wish to deploy on production, run `npm run build`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Prerequisites for Running API
 
-### `yarn eject`
+Node: >= 14.0
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Tests
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To run the tests, on the project folder run `npm test`
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Built With
 
-## Learn More
+- React
+- Redux
+- HTML
+- CSS
+- Axios
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Live Version
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+[Deployed on Netlify](https://gallant-ptolemy-3e1fa6.netlify.app/)
 
-### Code Splitting
+## Future Implementations
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+- I plan to add a calendar when clicking to rent a place, showing the available dates to rent and options to create and cancel a reservation (this is already prepared on the API just need to work on the Front End for this part).
+- It will be nice to have a page where the owner can check his rented places and the earnings he is making monthly with their rents. (This will need some work also on the API to return the information).
+- Another feature I want to create in the future is a chat between owner and renter. (This needs to be prepared on my API first)
 
-### Analyzing the Bundle Size
+## Contributing
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+Contributions, issues and feature requests are welcome!
 
-### Making a Progressive Web App
+You can do it on [issues page](issues/).
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+## Acknowledgments
 
-### Advanced Configuration
+This project was inspired by this [behance project idea](https://www.behance.net/gallery/37706679/Circle-(Landing-page-Dashboard-Mobile-App)) by [Alexey Savitskiy](https://www.behance.net/alexey_savitskiy)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+Special thanks to code reviewers.
 
-### Deployment
+## Show your support
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+Give a ⭐️ if you like this project!
 
-### `yarn build` fails to minify
+## Author
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+👤 **Gabriel Malheiros Silveira**
+
+- Github: [@Stricks1](https://github.com/Stricks1)
+- Linkedin: [Gabriel Silveira](https://linkedin.com/in/gabriel-malheiros-silveira/)
+- Twitter: [@Gabriel_Stricks](https://twitter.com/Gabriel_Stricks)
+
+## License
+
+<strong>Creative Commons 2020</strong>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+
+[contributors-shield]: https://img.shields.io/github/contributors/stricks1/houses-front-end.svg?style=flat-square
+[contributors-url]: https://github.com/stricks1/houses-front-end/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/stricks1/houses-front-end.svg?style=flat-square
+[forks-url]: https://github.com/stricks1/houses-front-end/network/members
+[stars-shield]: https://img.shields.io/github/stars/stricks1/houses-front-end.svg?style=flat-square
+[stars-url]: https://github.com/stricks1/houses-front-end/stargazers
+[issues-shield]: https://img.shields.io/github/issues/stricks1/houses-front-end.svg?style=flat-square
+[issues-url]: https://github.com/stricks1/houses-front-end/issues

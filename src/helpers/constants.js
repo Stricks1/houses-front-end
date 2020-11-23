@@ -1,4 +1,3 @@
-// const URL = 'http://localhost:3000';
 const URL = 'https://houses-api-be.herokuapp.com';
 const PLACES = '/v1/places';
 const LOGIN = '/v1/login';
