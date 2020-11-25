@@ -59,7 +59,7 @@ const LogInForm = () => {
             dispatch(userLogin(loginfo));
           }}
         >
-          <Form.Group size="lg" controlId="username">
+          <Form.Group size="lg">
             <Form.Label>Username</Form.Label>
             <Form.Control
               id="usernameLogin"
@@ -68,7 +68,7 @@ const LogInForm = () => {
               placeholder="Type your Username..."
             />
           </Form.Group>
-          <Form.Group size="lg" controlId="password">
+          <Form.Group size="lg">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"

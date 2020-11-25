@@ -129,7 +129,7 @@ const EditPlaceForm = () => {
             editPlace(place);
           }}
         >
-          <Form.Group size="lg" controlId="username">
+          <Form.Group size="lg">
             <Form.Label>Type Location</Form.Label>
             <Form.Control
               defaultValue={place.description.location_type}
@@ -142,7 +142,7 @@ const EditPlaceForm = () => {
               <option value="3">Room</option>
             </Form.Control>
           </Form.Group>
-          <Form.Group size="lg" controlId="address">
+          <Form.Group size="lg">
             <Form.Label>Description</Form.Label>
             <Form.Control
               defaultValue={place.description.address}
@@ -150,7 +150,7 @@ const EditPlaceForm = () => {
               placeholder="Type Description..."
             />
           </Form.Group>
-          <Form.Group size="lg" controlId="city">
+          <Form.Group size="lg">
             <Form.Label>City</Form.Label>
             <Form.Control
               defaultValue={place.description.city}
@@ -158,7 +158,7 @@ const EditPlaceForm = () => {
               placeholder="City..."
             />
           </Form.Group>
-          <Form.Group size="lg" controlId="country">
+          <Form.Group size="lg">
             <Form.Label>Country</Form.Label>
             <Form.Control
               defaultValue={place.description.country}
@@ -166,7 +166,7 @@ const EditPlaceForm = () => {
               placeholder="Country..."
             />
           </Form.Group>
-          <Form.Group size="lg" controlId="dailyPrice">
+          <Form.Group size="lg">
             <Form.Label>Daily Price</Form.Label>
             <Form.Control
               defaultValue={place.description.daily_price}

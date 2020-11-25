@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { URL, PLACES } from '../helpers/constants';
+import { PLACES } from '../helpers/constants';
+import { sendAuthorizedRequest } from '../helpers/api';
 
 export const LOAD_HOUSES = 'LOAD_HOUSES';
 export const RECEIVE_HOUSES = 'RECEIVE_HOUSES';
@@ -10,13 +10,7 @@ export const housesLoad = (redirect = 0, history = null) => async dispatch => {
     dispatch({
       type: LOAD_HOUSES,
     });
-    const urlCall = URL + PLACES;
-    axios.get(urlCall,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      }).then(response => {
+    sendAuthorizedRequest('get', PLACES, localStorage.getItem('token')).then(response => {
       const dataReturn = response.data;
       dispatch({
         type: RECEIVE_HOUSES,

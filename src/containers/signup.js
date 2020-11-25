@@ -77,7 +77,7 @@ const SignupForm = () => {
             passwordConfirmation.value = '';
           }}
         >
-          <Form.Group size="lg" controlId="username">
+          <Form.Group size="lg">
             <Form.Label>Username</Form.Label>
             <Form.Control
               autoFocus
@@ -85,14 +85,14 @@ const SignupForm = () => {
               placeholder="Type your Username..."
             />
           </Form.Group>
-          <Form.Group size="lg" controlId="email">
+          <Form.Group size="lg">
             <Form.Label>Email</Form.Label>
             <Form.Control
               ref={self => { (email = self); }}
               placeholder="Type your Email..."
             />
           </Form.Group>
-          <Form.Group size="lg" controlId="Password">
+          <Form.Group size="lg">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
@@ -100,7 +100,7 @@ const SignupForm = () => {
               placeholder="Create a Secure Password..."
             />
           </Form.Group>
-          <Form.Group size="lg" controlId="ConfirmPassword">
+          <Form.Group size="lg">
             <Form.Label>Confirm Password</Form.Label>
             <Form.Control
               type="password"

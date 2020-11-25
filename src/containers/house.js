@@ -18,6 +18,7 @@ const HouseDetail = () => {
   const favoritesState = useSelector(state => state.favorites);
   const usersState = useSelector(state => state.users);
   const message = useSelector(state => state.message);
+  const history = useHistory();
 
   let urlImage = React.createRef();
   const { id } = useParams();
@@ -26,9 +27,10 @@ const HouseDetail = () => {
   let isOwner = false;
   if (places.places) {
     place = places.places.find(element => element.id === id);
-    isOwner = (place.description.user_id === usersState.user.id);
+    if (place) {
+      isOwner = (place.description.user_id === usersState.user.id);
+    }
   }
-  const history = useHistory();
 
   useEffect(() => {
     if (!localStorage.getItem('token')) {
@@ -196,7 +198,7 @@ const HouseDetail = () => {
             }}
           >
 
-            <Form.Group size="lg" controlId="address">
+            <Form.Group size="lg">
               <Form.Label>Add new Image URL</Form.Label>
               <Form.Control
                 ref={self => { (urlImage = self); }}

@@ -113,7 +113,7 @@ const CreatePlaceForm = () => {
             createPlace(place);
           }}
         >
-          <Form.Group size="lg" controlId="username">
+          <Form.Group size="lg">
             <Form.Label>Type Location</Form.Label>
             <Form.Control
               as="select"
@@ -125,28 +125,28 @@ const CreatePlaceForm = () => {
               <option value="3">Room</option>
             </Form.Control>
           </Form.Group>
-          <Form.Group size="lg" controlId="address">
+          <Form.Group size="lg">
             <Form.Label>Description</Form.Label>
             <Form.Control
               ref={self => { (address = self); }}
               placeholder="Type Description..."
             />
           </Form.Group>
-          <Form.Group size="lg" controlId="city">
+          <Form.Group size="lg">
             <Form.Label>City</Form.Label>
             <Form.Control
               ref={self => { (city = self); }}
               placeholder="City..."
             />
           </Form.Group>
-          <Form.Group size="lg" controlId="country">
+          <Form.Group size="lg">
             <Form.Label>Country</Form.Label>
             <Form.Control
               ref={self => { (country = self); }}
               placeholder="Country..."
             />
           </Form.Group>
-          <Form.Group size="lg" controlId="dailyPrice">
+          <Form.Group size="lg">
             <Form.Label>Daily Price</Form.Label>
             <Form.Control
               type="number"
