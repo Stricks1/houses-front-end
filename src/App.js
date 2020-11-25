@@ -8,6 +8,7 @@ import HouseDetail from './containers/house';
 import CreatePlaceForm from './containers/createPlace';
 import EditPlaceForm from './containers/editPlace';
 import Nav from './components/navbar';
+import NotFound from './components/notFound';
 import './index.css';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/house/:id" exact component={HouseDetail} />
           <Route path="/" exact component={LogInForm} />
           <Route path="/register" exact component={SignupForm} />
+          <Route component={NotFound} />
         </Switch>
       </div>
     </div>
