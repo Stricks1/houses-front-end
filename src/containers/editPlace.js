@@ -4,10 +4,10 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { URL, PLACES } from '../helpers/constants';
+import { PLACES } from '../helpers/constants';
+import { sendAuthorizedRequest } from '../helpers/api';
 import { CHANGE_MESS } from '../actions/messages';
 import { housesLoad } from '../actions/requestHouses';
 import loadImg from '../assets/loadImg.gif';
@@ -40,19 +40,11 @@ const EditPlaceForm = () => {
 
   function editPlace(placeObj) {
     try {
-      const urlCall = `${URL}${PLACES}/${place.id}`;
-      axios
-        .put(
-          urlCall,
-          {
-            place: placeObj,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-          },
-        )
+      const path = `${PLACES}/${place.id}`;
+      const dataSent = {
+        place: placeObj,
+      };
+      sendAuthorizedRequest('put', path, localStorage.getItem('token'), dataSent)
         .then(response => {
           if ((typeof response.data.data !== 'undefined') && response.data.data.type === 'place') {
             dispatch(housesLoad(response.data.data.id, history));

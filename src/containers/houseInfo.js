@@ -1,6 +1,5 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/require-default-props */
-import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Carousel from 'react-bootstrap/Carousel';
@@ -10,7 +9,8 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { housesLoad } from '../actions/requestHouses';
 import { favoritesLoad } from '../actions/requestFavorites';
-import { URL, IMAGES, FAVORITES } from '../helpers/constants';
+import { IMAGES, FAVORITES } from '../helpers/constants';
+import { sendAuthorizedRequest } from '../helpers/api';
 import { CHANGE_MESS } from '../actions/messages';
 
 const HouseInfo = ({ place, isOwner, isFav }) => {
@@ -26,16 +26,8 @@ const HouseInfo = ({ place, isOwner, isFav }) => {
 
   function handleDeleteImage(imgId) {
     try {
-      const urlCall = `${URL}${IMAGES}/${imgId}`;
-      axios
-        .delete(
-          urlCall,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-          },
-        )
+      const path = `${IMAGES}/${imgId}`;
+      sendAuthorizedRequest('delete', path, localStorage.getItem('token'))
         .then(response => {
           if (response) {
             dispatch(housesLoad());
@@ -64,16 +56,8 @@ const HouseInfo = ({ place, isOwner, isFav }) => {
 
   function removeFavorite() {
     try {
-      const urlCall = `${URL}${FAVORITES}/${place.id}`;
-      axios
-        .delete(
-          urlCall,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-          },
-        )
+      const path = `${FAVORITES}/${place.id}`;
+      sendAuthorizedRequest('delete', path, localStorage.getItem('token'))
         .then(response => {
           if (response) {
             dispatch(favoritesLoad());
@@ -89,19 +73,10 @@ const HouseInfo = ({ place, isOwner, isFav }) => {
 
   function addFavorite() {
     try {
-      const urlCall = URL + FAVORITES;
-      axios
-        .post(
-          urlCall,
-          {
-            favorite: { place_id: place.id },
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-          },
-        )
+      const dataSent = {
+        favorite: { place_id: place.id },
+      };
+      sendAuthorizedRequest('post', FAVORITES, localStorage.getItem('token'), dataSent)
         .then(response => {
           if (response) {
             dispatch(favoritesLoad());

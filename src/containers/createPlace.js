@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { URL, PLACES } from '../helpers/constants';
+import { PLACES } from '../helpers/constants';
+import { sendAuthorizedRequest } from '../helpers/api';
 import { CHANGE_MESS } from '../actions/messages';
 import { housesLoad } from '../actions/requestHouses';
 import loadImg from '../assets/loadImg.gif';
@@ -28,19 +28,10 @@ const CreatePlaceForm = () => {
 
   function createPlace(placeObj) {
     try {
-      const urlCall = URL + PLACES;
-      axios
-        .post(
-          urlCall,
-          {
-            place: placeObj,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-          },
-        )
+      const dataSent = {
+        place: placeObj,
+      };
+      sendAuthorizedRequest('post', PLACES, localStorage.getItem('token'), dataSent)
         .then(response => {
           if (response.data.data.type === 'place') {
             dispatch(housesLoad(response.data.data.id, history));

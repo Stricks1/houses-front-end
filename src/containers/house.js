@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useHistory } from 'react-router-dom';
@@ -7,7 +6,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { housesLoad } from '../actions/requestHouses';
 import { favoritesLoad } from '../actions/requestFavorites';
-import { URL, IMAGES, PLACES } from '../helpers/constants';
+import { IMAGES, PLACES } from '../helpers/constants';
+import { sendAuthorizedRequest } from '../helpers/api';
 import { CHANGE_MESS } from '../actions/messages';
 import HouseInfo from './houseInfo';
 import loadImg from '../assets/loadImg.gif';
@@ -43,19 +43,10 @@ const HouseDetail = () => {
 
   function createImage(imageObj) {
     try {
-      const urlCall = URL + IMAGES;
-      axios
-        .post(
-          urlCall,
-          {
-            image: imageObj,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-          },
-        )
+      const dataSent = {
+        image: imageObj,
+      };
+      sendAuthorizedRequest('post', IMAGES, localStorage.getItem('token'), dataSent)
         .then(response => {
           if (response.data.data.type === 'image') {
             dispatch(housesLoad());
@@ -113,16 +104,8 @@ const HouseDetail = () => {
 
   function handleDelete() {
     try {
-      const urlCall = `${URL}${PLACES}/${place.id}`;
-      axios
-        .delete(
-          urlCall,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-          },
-        )
+      const path = `${PLACES}/${place.id}`;
+      sendAuthorizedRequest('delete', path, localStorage.getItem('token'))
         .then(response => {
           if (response) {
             dispatch(housesLoad());

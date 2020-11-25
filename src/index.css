@@ -139,6 +139,7 @@ code {
   top: 22px;
   left: 50%;
   transform: translateX(-75px);
+  z-index: 90;
 }
 
 .carousel-indicators {
