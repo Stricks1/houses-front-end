@@ -1,13 +1,171 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'Roboto',
+    'Oxygen',
+    'Ubuntu',
+    'Cantarell',
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family:
+    source-code-pro,
+    Menlo,
+    Monaco,
+    Consolas,
+    'Courier New',
     monospace;
+}
+
+.dropdown-item {
+  padding: 0 !important;
+}
+
+.menu-item {
+  display: block;
+  padding: 0 10%;
+}
+
+.list-nav {
+  list-style-type: none;
+  margin: 0;
+  padding-right: 5%;
+}
+
+.Login {
+  padding: 5%;
+}
+
+.error {
+  border-color: red !important;
+}
+
+.logoCenter {
+  width: 50%;
+  max-width: 150px;
+  padding-bottom: 50px;
+}
+
+.image-load {
+  width: 100%;
+  height: 100%;
+}
+
+.bg-load {
+  width: 30vh;
+  height: 30vh;
+  opacity: 0.7;
+  margin: auto;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 250px;
+  justify-content: center;
+  margin: 0 15px;
+}
+
+.single-card-container {
+  max-width: 550px;
+  margin: 10px 15px;
+  border: 1px solid grey;
+  background-color: #e1e1e1;
+}
+
+.max-550 {
+  max-width: 550px;
+}
+
+.single-card-container:hover {
+  background-color: #ececec;
+  box-shadow: 7px 5px 20px 0 rgba(119, 115, 114, 0.671);
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+}
+
+.title-card {
+  height: 80px;
+}
+
+.city-loc {
+  font-size: 1.25em;
+  color: #222;
+}
+
+.price-info {
+  color: #222;
+}
+
+.small-label {
+  font-size: 0.8em;
+  color: #555;
+}
+
+.navbar-top {
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  z-index: 50;
+}
+
+.main-container {
+  margin-top: 70px;
+}
+
+.favClick {
+  cursor: pointer;
+  color: rgb(194, 183, 36);
+  font-size: 2em;
+  padding-right: 5px;
+  padding-top: 5px;
+}
+
+.remove-image {
+  position: relative;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-75px);
+  z-index: 90;
+}
+
+.carousel-indicators {
+  top: 0 !important;
+}
+
+.favorite-container {
+  color: yellow;
+  position: relative;
+  left: 20px;
+  top: 60px;
+  margin-top: -48px;
+  font-size: 2em;
+}
+
+.dropdown-menu {
+  font-size: 1.5em;
+}
+
+@media all and (min-width: 400px) {
+  .Login {
+    padding: 60px 0;
+  }
+
+  .Login form {
+    margin: 0 auto;
+    width: 320px;
+  }
 }
