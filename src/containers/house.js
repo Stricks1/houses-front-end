@@ -179,7 +179,7 @@ const HouseDetail = () => {
             />
             <div className="px-4 w-100 max-550">
               <Button block size="lg" type="button" variant="info" onClick={showModal}>
-                RENT
+                SCHEDULE RENT
               </Button>
             </div>
           </div>
