@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 import { useDispatch } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import { useLocation, useHistory } from 'react-router-dom';
-import { OCCUPIED } from '../helpers/constants';
+import { OCCUPIED, RENTDATE } from '../helpers/constants';
 import { CHANGE_MESS } from '../actions/messages';
 import { sendAuthorizedRequest } from '../helpers/api';
 import ErrorItem from './errorItem';
@@ -19,18 +19,40 @@ const ModalRent = ({ handleClose, show }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const showHideClassName = show ? 'modal1 d-block' : 'modal1 d-none';
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);
   const [maxDate, setMaxDate] = useState(new Date());
   const [excludeDates, setExcludeDates] = useState([]);
+  const [excludeDatesStart, setExcludeDatesStart] = useState([]);
+  const [excludeDatesEnd, setExcludeDatesEnd] = useState([]);
   const [placeId] = useState(useLocation().pathname.split('/').pop());
   const [endDate, setEndDate] = useState(null);
   const [itemError, setItemError] = useState(null);
+
   const onChange = dates => {
-    const [start, end] = dates;
+    let [start, end] = dates;
     setItemError(null);
+    if (start) {
+      setExcludeDates(excludeDatesStart);
+      let invalidStart = false;
+      excludeDatesStart.forEach(element => {
+        if (start.getTime() === element.getTime()) {
+          invalidStart = true;
+        }
+      });
+      if (invalidStart) {
+        setStartDate(null);
+        setEndDate(null);
+        start = null;
+        end = null;
+      } else {
+        setExcludeDates(excludeDatesEnd);
+      }
+    } else if (end == null) {
+      setExcludeDates(excludeDatesStart);
+    }
     let isValid = true;
     excludeDates.forEach(element => {
-      if (start <= element && element <= end) {
+      if (start < element && element <= end) {
         isValid = false;
       }
     });
@@ -38,12 +60,14 @@ const ModalRent = ({ handleClose, show }) => {
       setStartDate(start);
       setEndDate(end);
     } else {
-      setStartDate(end);
+      setStartDate(null);
+      setEndDate(null);
+      setExcludeDates(excludeDatesStart);
     }
   };
 
   const isValidDates = () => {
-    if (startDate && endDate) {
+    if (startDate && endDate && startDate < endDate) {
       return true;
     }
     return false;
@@ -70,10 +94,16 @@ const ModalRent = ({ handleClose, show }) => {
         .then(response => {
           if (response) {
             const arrayExcluded = [];
+            const arrayExcludedEnd = [];
             response.data.occupied[0].forEach(uniqueDate => {
               arrayExcluded.push(new Date(uniqueDate.split('-')));
             });
+            response.data.occupied_end[0].forEach(uniqueDate => {
+              arrayExcludedEnd.push(new Date(uniqueDate.split('-')));
+            });
             setExcludeDates(arrayExcluded);
+            setExcludeDatesStart(arrayExcluded);
+            setExcludeDatesEnd(arrayExcludedEnd);
           }
         });
     } catch (error) {
@@ -86,14 +116,32 @@ const ModalRent = ({ handleClose, show }) => {
 
   const saveRent = () => {
     if (!isValidDates()) {
-      setItemError(['Unavailable Date', ['Please select a valid range']]);
+      setItemError(['Unavailable Date', ['Please select a valid range with at least one overnight']]);
     } else {
-      const unblur = document.getElementsByClassName('blurrable');
-      let i;
-      for (i = 0; i < unblur.length; i += 1) {
-        unblur[i].classList.remove('blur');
+      const rentObj = {
+        place_id: placeId,
+        start_date: startDate.toISOString().slice(0, 10),
+        end_date: endDate.toISOString().slice(0, 10),
+      };
+      try {
+        const dataSent = {
+          rent_date: rentObj,
+        };
+        sendAuthorizedRequest('post', RENTDATE, localStorage.getItem('token'), dataSent)
+          .then(() => {
+            const unblur = document.getElementsByClassName('blurrable');
+            let i;
+            for (i = 0; i < unblur.length; i += 1) {
+              unblur[i].classList.remove('blur');
+            }
+            history.push('/rent_dates');
+          });
+      } catch (error) {
+        dispatch({
+          type: CHANGE_MESS,
+          payload: error,
+        });
       }
-      history.push('/rent_dates');
     }
   };
 
@@ -154,6 +202,11 @@ const ModalRent = ({ handleClose, show }) => {
                 readOnly
               />
             </div>
+          </div>
+          <div className="px-4 align-self-center mb-2 text-center">
+            <span className="info-rent text-danger">
+              *Your rent starts at 2 PM from the start date and finishes at 10 AM from the end date
+            </span>
           </div>
           <div className="px-4 w-75 align-self-center">
             <Button block size="lg" type="button" variant="info" onClick={saveRent}>
