@@ -185,6 +185,11 @@ code {
   font-size: 1.5em;
 }
 
+.info-rent {
+  font-style: italic;
+  font-size: 0.75em;
+}
+
 .blur {
   filter: blur(5px);
 }
