@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 import { useDispatch } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import { useLocation, useHistory } from 'react-router-dom';
-import { OCCUPIED } from '../helpers/constants';
+import { OCCUPIED, RENTDATE } from '../helpers/constants';
 import { CHANGE_MESS } from '../actions/messages';
 import { sendAuthorizedRequest } from '../helpers/api';
 import ErrorItem from './errorItem';
@@ -43,7 +43,7 @@ const ModalRent = ({ handleClose, show }) => {
   };
 
   const isValidDates = () => {
-    if (startDate && endDate) {
+    if (startDate && endDate && startDate < endDate) {
       return true;
     }
     return false;
@@ -86,14 +86,32 @@ const ModalRent = ({ handleClose, show }) => {
 
   const saveRent = () => {
     if (!isValidDates()) {
-      setItemError(['Unavailable Date', ['Please select a valid range']]);
+      setItemError(['Unavailable Date', ['Please select a valid range with at least one overnight']]);
     } else {
-      const unblur = document.getElementsByClassName('blurrable');
-      let i;
-      for (i = 0; i < unblur.length; i += 1) {
-        unblur[i].classList.remove('blur');
+      const rentObj = {
+        place_id: placeId,
+        start_date: startDate.toISOString().slice(0, 10),
+        end_date: endDate.toISOString().slice(0, 10),
+      };
+      try {
+        const dataSent = {
+          rent_date: rentObj,
+        };
+        sendAuthorizedRequest('post', RENTDATE, localStorage.getItem('token'), dataSent)
+          .then(() => {
+            const unblur = document.getElementsByClassName('blurrable');
+            let i;
+            for (i = 0; i < unblur.length; i += 1) {
+              unblur[i].classList.remove('blur');
+            }
+            history.push('/rent_dates');
+          });
+      } catch (error) {
+        dispatch({
+          type: CHANGE_MESS,
+          payload: error,
+        });
       }
-      history.push('/rent_dates');
     }
   };
 
