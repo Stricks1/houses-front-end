@@ -135,32 +135,55 @@ const HouseInfo = ({ place, isOwner, isFav }) => {
           )}
       </div>
       <div className="d-flex flex-column align-items-center">
-        <Carousel
-          activeIndex={index}
-          onSelect={handleSelect}
-          interval={20000}
-        >
-          {place.images.map(image => (
-            <Carousel.Item key={`image${image.id}`}>
-              <img
-                className="d-block w-100"
-                src={image.url}
-                alt={image.id}
-              />
-              <Carousel.Caption />
-              {((image.id !== 0 && isOwner)
-                ? (
-                  <div className="remove-image justify-content-center mb-4">
-                    <Button onClick={() => handleDeleteImage(image.id)} variant="danger" type="submit">
-                      REMOVE IMAGE
-                    </Button>
-                  </div>
-                )
-                : (<span />)
+        { place.images.length > 1
+         && (
+         <Carousel
+           activeIndex={index}
+           onSelect={handleSelect}
+           interval={20000}
+         >
+           {place.images.map(image => (
+             <Carousel.Item key={`image${image.id}`}>
+               <img
+                 className="d-block w-100 img-carousel"
+                 src={image.url}
+                 alt={image.id}
+               />
+               <Carousel.Caption />
+               {((image.id !== 0 && isOwner)
+                 ? (
+                   <div className="remove-image justify-content-center mb-4">
+                     <Button onClick={() => handleDeleteImage(image.id)} variant="danger" type="submit">
+                       REMOVE IMAGE
+                     </Button>
+                   </div>
+                 )
+                 : (<span />)
              )}
-            </Carousel.Item>
-          ))}
-        </Carousel>
+             </Carousel.Item>
+           ))}
+         </Carousel>
+         )}
+        { place.images.length === 1
+          && (
+          <>
+            <img
+              className="d-block w-100"
+              src={place.images[0].url}
+              alt={place.images[0].id}
+            />
+            {((place.images[0].id !== 0 && isOwner)
+              ? (
+                <div className="remove-image justify-content-center mb-4">
+                  <Button onClick={() => handleDeleteImage(place.images[0].id)} variant="danger" type="submit">
+                    REMOVE IMAGE
+                  </Button>
+                </div>
+              )
+              : (<span />)
+        )}
+          </>
+          )}
         <div className="d-flex flex-column h-100 align-self-start">
           <div className="city-info mt-4">
             <p>
