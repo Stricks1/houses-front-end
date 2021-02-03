@@ -1,40 +1,40 @@
 import {
-  LOAD_FAVORITES,
-  RECEIVE_FAVORITES,
-  ERROR_FETCHING_FAVORITES,
-} from '../actions/requestFavorites';
+  LOAD_RENTDATE,
+  RECEIVE_RENTDATE,
+  ERROR_FETCHING_RENTDATE,
+} from '../actions/requestScheduled';
 
 const initialState = {
   isFetching: false,
-  favorite: [],
+  scheduled: [],
   status: '',
 };
 
-const favorites = (state = initialState, action) => {
+const scheduled = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case LOAD_FAVORITES:
+    case LOAD_RENTDATE:
       return {
         ...state,
         isFetching: true,
       };
-    case RECEIVE_FAVORITES: {
+    case RECEIVE_RENTDATE: {
       const objectFormated = [];
       payload.data.forEach(element => {
-        objectFormated.push(element.attributes.place_id);
+        objectFormated.push(element);
       });
       return {
         ...state,
         isFetching: false,
-        favorite: objectFormated,
+        scheduled: objectFormated,
       };
     }
-    case ERROR_FETCHING_FAVORITES:
+    case ERROR_FETCHING_RENTDATE:
       return {
         ...state,
         isFetching: false,
-        favorite: payload,
+        scheduled: payload,
       };
 
     default:
@@ -42,4 +42,4 @@ const favorites = (state = initialState, action) => {
   }
 };
 
-export default favorites;
+export default scheduled;
