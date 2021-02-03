@@ -28,7 +28,7 @@ const Nav = () => {
               Places
             </Dropdown.Item>
             <Dropdown.Item as={Link} className="pl-2" to="/rent_dates">
-              Schedule Rents
+              Scheduled Rents
             </Dropdown.Item>
             <Dropdown.Item as={Link} className="pl-2" to="/add-place">
               Add a Rent Place

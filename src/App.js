@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import SignupForm from './containers/signup';
 import LogInForm from './containers/login';
 import HousesList from './containers/home';
+import SchedulesList from './containers/scheduledRents';
 import FavList from './containers/favorites';
 import HouseDetail from './containers/house';
 import CreatePlaceForm from './containers/createPlace';
@@ -22,6 +23,7 @@ function App() {
           <Route path="/home" exact component={HousesList} />
           <Route path="/favorites" exact component={FavList} />
           <Route path="/add-place" exact component={CreatePlaceForm} />
+          <Route path="/rent_dates" exact component={SchedulesList} />
           <Route path="/edit/:id" exact component={EditPlaceForm} />
           <Route path="/house/:id" exact component={HouseDetail} />
           <Route path="/" exact component={LogInForm} />
