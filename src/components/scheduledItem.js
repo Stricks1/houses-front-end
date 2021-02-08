@@ -13,17 +13,17 @@ const RentItem = ({ scheduled }) => {
   const endDate = scheduled.end_date;
   const rentPrice = scheduled.rent_price;
   return (
-    <div className="single-card-container">
+    <div className="single-schedule-container w-100 my-3 p-4">
       <Link className="text-decoration-none" to={`/house/${place.id}`} id="link-detail">
-        <div className="d-flex-around title-card d-flex justify-content-around align-items-center">
+        <div className="d-flex-around title-card d-flex flex-column justify-content-around align-items-center">
           <div className="city-loc">
             <span>
               {`${place.city} - ${place.country}`}
             </span>
           </div>
           <div className="d-flex flex-column price-info align-items-center">
-            <span>
-              $
+            <span className="mb-3">
+              Total $
               {' '}
               {parseFloat(rentPrice).toFixed(2)}
             </span>
