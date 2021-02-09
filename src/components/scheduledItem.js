@@ -12,33 +12,108 @@ const RentItem = ({ scheduled }) => {
   const startDate = scheduled.start_date;
   const endDate = scheduled.end_date;
   const rentPrice = scheduled.rent_price;
+  const startDateD = new Date(startDate.split('-'));
+  const endDateD = new Date(endDate.split('-'));
+  const today = new Date();
   return (
-    <div className="single-schedule-container w-100 my-3 p-4">
-      <Link className="text-decoration-none" to={`/house/${place.id}`} id="link-detail">
-        <div className="d-flex-around title-card d-flex flex-column justify-content-around align-items-center">
-          <div className="city-loc">
-            <span>
-              {`${place.city} - ${place.country}`}
-            </span>
+    <>
+      { startDateD < today && endDateD < today
+      && (
+      <div className="single-schedule-container past w-100 my-3 p-4">
+        <Link className="text-decoration-none" to={`/house/${place.id}`} id="link-detail">
+          <div className="d-flex-around title-card d-flex flex-column justify-content-around align-items-center">
+            <div className="">
+              <span className="city-loc">
+                {`${place.city} - ${place.country}`}
+              </span>
+            </div>
+            <div className="d-flex flex-column price-info align-items-center">
+              <span className="mb-3">
+                Total $
+                {' '}
+                {parseFloat(rentPrice).toFixed(2)}
+              </span>
+              <span className="small-label">
+                Start at:
+                {startDate}
+              </span>
+              <span className="small-label">
+                Ends at:
+                {endDate}
+              </span>
+            </div>
           </div>
-          <div className="d-flex flex-column price-info align-items-center">
-            <span className="mb-3">
-              Total $
-              {' '}
-              {parseFloat(rentPrice).toFixed(2)}
+          <span className="text-dark info-schedule float-right">
+            Past
+          </span>
+        </Link>
+      </div>
+      )}
+      { startDateD < today && endDateD > today
+        && (
+        <div className="single-schedule-container actual w-100 my-3 p-4">
+          <Link className="text-decoration-none" to={`/house/${place.id}`} id="link-detail">
+            <div className="d-flex-around title-card d-flex flex-column justify-content-around align-items-center">
+              <div className="city-loc">
+                <span>
+                  {`${place.city} - ${place.country}`}
+                </span>
+              </div>
+              <div className="d-flex flex-column price-info align-items-center">
+                <span className="mb-3">
+                  Total $
+                  {' '}
+                  {parseFloat(rentPrice).toFixed(2)}
+                </span>
+                <span className="small-label">
+                  Start at:
+                  {startDate}
+                </span>
+                <span className="small-label">
+                  Ends at:
+                  {endDate}
+                </span>
+              </div>
+            </div>
+            <span className="text-dark info-schedule float-right">
+              Ongoing
             </span>
-            <span className="small-label">
-              Start at:
-              {startDate}
-            </span>
-            <span className="small-label">
-              Ends at:
-              {endDate}
-            </span>
-          </div>
+          </Link>
         </div>
-      </Link>
-    </div>
+        )}
+      { startDateD > today && endDateD > today
+        && (
+        <div className="single-schedule-container upcoming w-100 my-3 p-4">
+          <Link className="text-decoration-none" to={`/house/${place.id}`} id="link-detail">
+            <div className="d-flex-around title-card d-flex flex-column justify-content-around align-items-center">
+              <div className="city-loc">
+                <span>
+                  {`${place.city} - ${place.country}`}
+                </span>
+              </div>
+              <div className="d-flex flex-column price-info align-items-center">
+                <span className="mb-3">
+                  Total $
+                  {' '}
+                  {parseFloat(rentPrice).toFixed(2)}
+                </span>
+                <span className="small-label">
+                  Start at:
+                  {startDate}
+                </span>
+                <span className="small-label">
+                  Ends at:
+                  {endDate}
+                </span>
+              </div>
+            </div>
+            <span className="text-dark info-schedule float-right">
+              Upcoming
+            </span>
+          </Link>
+        </div>
+        )}
+    </>
   );
 };
 
