@@ -5,7 +5,7 @@
 
 # React Front-End for rent a place
 
-On this project, I created a Front End that uses my [API](https://github.com/Stricks1/HousesApi) to manage renting places. The idea is to create a simplified version of AirBnb, where every user can register their own places for rent. For now, the Front End can handle the user signup and signing (utilizing tokens for validating the sessions/saving the machine login), each user can create edit and delete their own places and add photos for their renting places, save or remove places from their favorites and get a list of favorite places at each user.
+On this project, I created a Front End that uses my [API](https://github.com/Stricks1/HousesApi) to manage renting places. The idea is to create a simplified version of AirBnb, where every user can register their own places for rent. For now, the Front End can handle the user signup and signing (utilizing tokens for validating the sessions/saving the machine login), each user can create edit and delete their own places and add photos for their renting places, save or remove places from their favorites, schedule rents for places and and get a list of favorite places at each user.
 
 #### Login Page
 ![Login](./loginSS.png)

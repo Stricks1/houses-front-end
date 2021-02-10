@@ -194,6 +194,43 @@ code {
   filter: blur(5px);
 }
 
+.single-schedule-container {
+  max-width: 550px;
+  border: 1px solid grey;
+}
+
+.single-schedule-container:hover {
+  box-shadow: 7px 5px 20px 0 rgba(119, 115, 114, 0.671);
+}
+
+.past {
+  background-color: #fe8484;
+}
+
+.past:hover {
+  background-color: #fe5c5c;
+}
+
+.actual {
+  background-color: #e1e1e1;
+}
+
+.actual:hover {
+  background-color: #ececec;
+}
+
+.upcoming {
+  background-color: #85fa89;
+}
+
+.upcoming:hover {
+  background-color: #46f74c;
+}
+
+.info-schedule {
+  font-size: 0.75em;
+}
+
 @media all and (min-width: 400px) {
   .Login {
     padding: 60px 0;
