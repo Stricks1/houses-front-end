@@ -19,8 +19,7 @@ const RentItem = ({ scheduled }) => {
     <>
       { startDateD < today && endDateD < today
       && (
-      <div className="single-schedule-container past w-100 my-3 p-4">
-        <Link className="text-decoration-none" to={`/house/${place.id}`} id="link-detail">
+        <Link className="text-decoration-none past w-100 single-schedule-container my-3 py-4 px-2" to={`/house/${place.id}`} id="link-detail">
           <div className="d-flex-around title-card d-flex flex-column justify-content-around align-items-center">
             <div className="">
               <span className="city-loc">
@@ -47,12 +46,10 @@ const RentItem = ({ scheduled }) => {
             Past
           </span>
         </Link>
-      </div>
       )}
       { startDateD < today && endDateD > today
         && (
-        <div className="single-schedule-container actual w-100 my-3 p-4">
-          <Link className="text-decoration-none" to={`/house/${place.id}`} id="link-detail">
+          <Link className="text-decoration-none actual w-100 single-schedule-container my-3 py-4 px-2" to={`/house/${place.id}`} id="link-detail">
             <div className="d-flex-around title-card d-flex flex-column justify-content-around align-items-center">
               <div className="city-loc">
                 <span>
@@ -79,12 +76,10 @@ const RentItem = ({ scheduled }) => {
               Ongoing
             </span>
           </Link>
-        </div>
         )}
       { startDateD > today && endDateD > today
         && (
-        <div className="single-schedule-container upcoming w-100 my-3 p-4">
-          <Link className="text-decoration-none" to={`/house/${place.id}`} id="link-detail">
+          <Link className="text-decoration-none upcoming w-100 single-schedule-container my-3 py-4 px-2" to={`/house/${place.id}`} id="link-detail">
             <div className="d-flex-around title-card d-flex flex-column justify-content-around align-items-center">
               <div className="city-loc">
                 <span>
@@ -111,7 +106,6 @@ const RentItem = ({ scheduled }) => {
               Upcoming
             </span>
           </Link>
-        </div>
         )}
     </>
   );
